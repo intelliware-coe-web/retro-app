@@ -3,9 +3,11 @@
 <link rel="import" href="../../bower_components/wired-card/wired-card.html">
 <link rel="import" href="../../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../../bower_components/wired-input/wired-input.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 
 <dom-module id="create-room">
+
   <template>
 
     <style>
@@ -17,10 +19,23 @@
 
     <wired-card class="create-room">
       <h3>Create Room</h3>
-      <wired-input id="roomName" placeholder="Room name"></wired-input>
-      <wired-button text="Create" on-click="createRoom"></wired-button>
+      <div>
+          <wired-input id="roomName" placeholder="Room name"></wired-input>
+          <wired-button text="Create" on-click="createRoom"></wired-button>
+      </div>
+  
+      <div>
+          <wired-combo id="roomSelection" selected="">
+            <template is="dom-repeat" items="[[roomDataArray]]">
+              <wired-item value="[[item.name]]" text="[[item.value.name]]"></wired-item>
+            </template>
+          </wired-combo>
+          <wired-button text="Copy from Previous" on-click="copyRoom"></wired-button>
+      </div>
+
     </wired-card>
 
+    <firebase-document path="/rooms" data="{{roomData}}"/>
     <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>
 
   </template>
@@ -29,9 +44,43 @@
     class CreateRoom extends Polymer.Element {
       static get is() { return 'create-room'; }
 
+      static get properties() {
+        return {
+
+          'roomData': {
+            type: Object,
+            observer: '_roomDataChange'
+          },
+          'roomDataArray' :{
+            type:Array
+          }
+        };
+      }
+
+      _toArray(obj) {
+            return Object.keys(obj).map(function(key) {
+                return {
+                    name: key,
+                    value: obj[key]
+                };
+            });
+        }
+
+      _roomDataChange(newValue, oldValue) {
+        this.roomDataArray = this._toArray(newValue);
+        console.log(newValue, oldValue);
+      }
+
       createRoom() {
         this.$.createRoomQuery.ref
           .push({name: this.$.roomName.value})
+          .then(this.dispatchJoinRoomEvent);
+      }
+
+      copyRoom(){
+        var oldTries = this.roomData[this.$.roomSelection.value.value].tries;
+        this.$.createRoomQuery.ref
+          .push({name: this.$.roomName.value, tries: oldTries})
           .then(this.dispatchJoinRoomEvent);
       }
 
