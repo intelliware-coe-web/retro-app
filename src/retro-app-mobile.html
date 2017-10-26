@@ -62,12 +62,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-pages selected="[[page]]">
       <section>
         <h1>Mobile App Join Room</h1>
-        <wired-input on-click="`hRooms" placeholder="search" ></wired-input>
+        <wired-input on-click="searchRooms" placeholder="search" ></wired-input>
 
         <template is="dom-repeat" items="[[roomDataArray]]">
             <div>
                 <span>[[item.value.name]]</span>
-                <wired-button on-click="joinRoom" text="Join Room"></wired-button>
+                <wired-button text="Join Room" on-click="joinRoom"></wired-button>
             </div>
         </template>       
 
@@ -126,11 +126,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.roomDataArray = this._toArray(newValue);
       }
 
-      joinRoom() {
-        this.page = 1
+      joinRoom(event) {
+        console.log("test", event.model.item.name);
       }
-
-      searchRooms() {}
         
       addRetroItem() {
         let retroData = {
