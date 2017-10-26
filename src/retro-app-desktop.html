@@ -22,6 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/wired-card/wired-card.html">
 <link rel="import" href="../bower_components/wired-button/wired-button.html">
+<link rel="import" href="../bower_components/wired-input/wired-input.html">
+
 <link rel="import" href="my-icons.html">
 
 <dom-module id="retro-app-desktop">
@@ -37,12 +39,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Main content -->
     <iron-pages selected="[[page]]">
-      <section>
-          <wired-card>
-              <h1>Retro App</h1>
-              <h2>Create Room</h2>
-              <wired-button on-click="goToRoomPage" text="Join Room"></wired-button>
+      <section style="text-align: center;">
+            
+            <h1>Retro App</h1>
+
+            <wired-card style="padding: 5px 75px 25px 75px; text-align: center;">
+              <h3>Create Room</h3>
+                <wired-input placeholder="Room name"></wired-input>
+                <wired-button text="Create"></wired-button>
             </wired-card>
+
       </section>
       <section>
         <wired-card>
