@@ -1,0 +1,49 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/wired-card/wired-card.html">
+<link rel="import" href="../../bower_components/wired-item/wired-item.html">
+<link rel="import" href="../../bower_components/wired-listbox/wired-listbox.html">
+
+
+<dom-module id="list-rooms">
+  <template>
+
+    <style></style>
+
+    <h3>Existing Rooms</h3>
+
+    <template is="dom-if" if="{{hasRooms(rooms)}}">
+      <wired-listbox>
+        <template if="false" is="dom-repeat" items="{{roomsAsArray(rooms)}}">
+          <wired-item text="{{item.name}}" on-click="joinRoom"></wired-item>
+        </template>
+      </wired-listbox>
+    </template>
+    
+    <firebase-document path="/rooms" data={{rooms}} />
+
+  </template>
+
+  <script>
+    class ListRooms extends Polymer.Element {
+      static get is() { return 'list-rooms'; }
+
+      hasRooms(rooms) {
+        return Object.keys(rooms || {}).length;
+      }
+
+      roomsAsArray(rooms) {
+          return Object
+                  .keys(rooms || {}) // Get all the keys (ie. IDs)
+                  .map(roomKey => Object.assign({}, rooms[roomKey], {key: roomKey})); // Return an Array of rooms, and adds key
+      }
+
+      joinRoom(event) {
+        let roomKey = event.model.item.key;
+        document.dispatchEvent(new CustomEvent('on-join-room', {detail: {roomKey: roomKey}}));
+      }
+    }
+
+    window.customElements.define(ListRooms.is, ListRooms);
+  </script>
+</dom-module>
