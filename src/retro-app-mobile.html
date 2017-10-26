@@ -20,9 +20,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../bower_components/wired-card/wired-card.html">
+<link rel="import" href="../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/wired-input/wired-input.html">
+<link rel="import" href="../bower_components/wired-radio-group/wired-radio-group.html">
+<link rel="import" href="../bower_components/wired-radio/wired-radio.html">
+<link rel="import" href="../bower_components/wired-textarea/wired-textarea.html">
+<link rel="import" href="../bower_components/wired-combo/wired-combo.html">
 
 <link rel="import" href="retro-auth.html">
 
@@ -53,7 +58,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
       </section>
       <section>
-        <h1>Add Retro Notes</h1>
+        <wired-card class="form">
+          <wired-combo id="retroType" selected="good">
+            <wired-item value="good" text="Good"></wired-item>
+            <wired-item value="bad" text="Bad"></wired-item>
+            <wired-item value="try" text="Try"></wired-item>
+            <wired-item value="banana" text="Banana"></wired-item>
+          </wired-combo>
+          <div>
+            <wired-textarea id="retroText" rows="5"></wired-textarea>              
+          </div>
+          <wired-button on-click="addRetroItem" text="Add"></wired-button>
+        </wired-card>
       </section>
     </iron-pages>
   </template>
@@ -73,6 +89,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       goToPageTwo() {
         this.page = 1
+      }
+
+      addRetroItem() {
+        let retroData = {
+          type: this.$.retroType.value.value,
+          text: this.$.retroText.value 
+        };
+
+        console.log(retroData);
       }
 
       ready() {
