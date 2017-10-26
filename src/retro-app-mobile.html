@@ -21,7 +21,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/wired-button/wired-button.html">
+<link rel="import" href="../bower_components/wired-card/wired-card.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 
+<link rel="import" href="retro-auth.html">
 
 <dom-module id="retro-app-mobile">
   <template>
@@ -33,11 +36,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <firebase-app 
+      auth-domain="retro-c4375.firebaseapp.com"
+      database-url="https://retro-c4375.firebaseio.com"
+      storage-bucket="retro-c4375.appspot.com"
+      api-key="AIzaSyBHCLv-UiI5unmoLU5aObmDqlXxvlmxqwc">
+    </firebase-app>
+
+    <retro-auth id="auth" user="{{user}}"></retro-auth>
+
     <!-- Main content -->
     <iron-pages selected="[[page]]">
       <section>
-        <h1>Mobile App Join Room</h1>
+        <h1>Mobile App Join Room [[user.displayName]]</h1>
         <wired-button on-click="goToPageTwo" text="Page 2"></wired-button>
+        
       </section>
       <section>
         <h1>Add Retro Notes</h1>

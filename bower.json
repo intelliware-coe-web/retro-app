@@ -33,7 +33,9 @@
     "wired-menu-bar": "wiredjs/wired-menu-bar#^0.1.0",
     "wired-slider": "wiredjs/wired-slider#^0.1.0",
     "wired-tooltip": "wiredjs/wired-tooltip#^0.1.2",
-    "wired-spinner": "wiredjs/wired-spinner#^0.1.0"
+    "wired-spinner": "wiredjs/wired-spinner#^0.1.0",
+    "polymerfire": "^2.2.1",
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0",
