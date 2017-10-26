@@ -36,7 +36,7 @@
       }
 
       dispatchJoinRoomEvent(room) {
-        document.dispatchEvent(new CustomEvent('join-room', {detail: {roomKey: room.key}}));
+        document.dispatchEvent(new CustomEvent('on-join-room', {detail: {roomKey: room.key}}));
       }
 
     }

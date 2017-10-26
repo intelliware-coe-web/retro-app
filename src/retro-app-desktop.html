@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="retro-auth.html">
 
 <link rel="import" href="./rooms/create-room.html">
+<link rel="import" href="./rooms/view-room.html">
 
 <link rel="import" href="my-icons.html">
 
@@ -54,11 +55,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="create-room-page">
 
         <div page-name="create-room-page">
-          <create-room></create-room>
+          <create-room />
         </div>
 
         <div page-name="view-room-page">
-          View Page Component
+          <view-room room-key="{{roomKey}}"/>
         </div>
 
       </iron-pages>
@@ -80,8 +81,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready() {
         super.ready();
-        document.addEventListener('join-room', event => this.pageName = 'view-room-page');
+        document.addEventListener('on-join-room', (event) => this.viewRoom(event));
       }
+
+      viewRoom(event) {
+        this.roomKey = event.detail.roomKey;
+        this.pageName = 'view-room-page';
+      }
+
     }
 
     window.customElements.define(RetroAppDesktop.is, RetroAppDesktop);

@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/wired-card/wired-card.html">
+<link rel="import" href="../../bower_components/wired-button/wired-button.html">
+<link rel="import" href="../../bower_components/wired-input/wired-input.html">
+
+
+<dom-module id="view-room">
+  <template>
+
+    <style></style>
+
+    <h3>Room: {{room.name}}</h3>
+
+    <firebase-document path="/rooms/{{roomKey}}" data={{room}} />
+
+  </template>
+
+  <script>
+    class ViewRoom extends Polymer.Element {
+      static get is() { return 'view-room'; }
+
+      static get properties() {
+        return {
+          roomKey: String
+          };
+        }
+    }
+
+    window.customElements.define(ViewRoom.is, ViewRoom);
+  </script>
+</dom-module>
