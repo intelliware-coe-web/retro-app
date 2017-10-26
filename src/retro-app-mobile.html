@@ -60,6 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Main content -->
     <iron-pages selected="[[page]]">
+
       <section>
         <h1>Mobile App Join Room</h1>
         <wired-input on-click="searchRooms" placeholder="search" ></wired-input>
@@ -70,8 +71,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <wired-button text="Join Room" on-click="joinRoom"></wired-button>
             </div>
         </template>       
-
       </section>
+
       <section>
         <wired-card class="form">
           <wired-combo id="retroType" selected="good">
@@ -105,9 +106,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           'roomDataArray' :{
             type:Array
+          },
+          'currentRoom' :{
+            type: String
           }
-
-          
         };
       }
 
@@ -122,12 +124,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
       _roomDataChange(newValue, oldValue) {
-        console.log(newValue);
         this.roomDataArray = this._toArray(newValue);
       }
 
       joinRoom(event) {
-        console.log("test", event.model.item.name);
+        this.page = 1;
+        this.currentRoom = event.model.item.name;
       }
         
       addRetroItem() {
