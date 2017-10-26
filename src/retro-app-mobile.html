@@ -37,7 +37,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-pages selected="[[page]]">
       <section>
         <h1>Mobile App Join Room</h1>
-        <wired-button on-click="goToPageTwo" text="Page 2"></wired-button>
+        <wired-input on-click="searchRooms" placeholder="search" ></wired-input>
+        <div>        
+          <wired-input placeholder="Hackathon" ></wired-input>
+          <wired-button on-click="joinRoom" text="Join Room"></wired-button>
+        </div>
+
       </section>
       <section>
         <h1>Add Retro Notes</h1>
@@ -58,8 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       }
 
-      goToPageTwo() {
+      joinRoom() {
         this.page = 1
+      }
+
+      searchRooms() {
+        
       }
 
       ready() {
