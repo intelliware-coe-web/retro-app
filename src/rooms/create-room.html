@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/wired-card/wired-card.html">
+<link rel="import" href="../../bower_components/wired-button/wired-button.html">
+<link rel="import" href="../../bower_components/wired-input/wired-input.html">
+
+
+<dom-module id="create-room">
+  <template>
+
+    <style>
+      .create-room {
+        padding: 5px 75px 25px 75px;
+        text-align: center;
+      }
+    </style>
+
+    <wired-card class="create-room">
+      <h3>Create Room</h3>
+      <wired-input placeholder="Room name"></wired-input>
+      <wired-button text="Create"></wired-button>
+    </wired-card>
+
+  </template>
+
+  <script>
+    class CreateRoom extends Polymer.Element {
+      static get is() { return 'create-room'; }
+    }
+
+    window.customElements.define(CreateRoom.is, CreateRoom);
+  </script>
+</dom-module>

@@ -24,6 +24,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../bower_components/wired-input/wired-input.html">
 
+<link rel="import" href="./rooms/create-room.html">
+
 <link rel="import" href="my-icons.html">
 
 <dom-module id="retro-app-desktop">
@@ -42,20 +44,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <section style="text-align: center;">
             
             <h1>Retro App</h1>
-
-            <wired-card style="padding: 5px 75px 25px 75px; text-align: center;">
-              <h3>Create Room</h3>
-                <wired-input placeholder="Room name"></wired-input>
-                <wired-button text="Create"></wired-button>
-            </wired-card>
-
+            <create-room></create-room>
+            
       </section>
-      <section>
-        <wired-card>
-            <h1>Room Name</h1>
-            Stuff goes here
-        </wired-card>
-      </section>
+
     </iron-pages>
   </template>
 
