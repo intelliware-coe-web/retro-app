@@ -23,10 +23,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../bower_components/wired-card/wired-card.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+
 
 <link rel="import" href="retro-auth.html">
 
+
+
 <dom-module id="retro-app-mobile">
+
   <template>
     <style>
       :host {
@@ -44,16 +49,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </firebase-app>
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
+    <firebase-document
+    path="/rooms"
+    data="{{roomData}}">
+  </firebase-document>
 
     <!-- Main content -->
     <iron-pages selected="[[page]]">
       <section>
         <h1>Mobile App Join Room</h1>
         <wired-input on-click="searchRooms" placeholder="search" ></wired-input>
-        <div>        
-          <wired-input placeholder="Hackathon" ></wired-input>
-          <wired-button on-click="joinRoom" text="Join Room"></wired-button>
-        </div>
+
+        <template is="dom-repeat" items="[[roomDataArray]]">
+            <div>
+                <span>[[item.value.name]]</span>
+                <wired-button on-click="joinRoom" text="Join Room"></wired-button>
+            </div>
+        </template>       
 
       </section>
       <section>
@@ -61,7 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </section>
     </iron-pages>
   </template>
-
+    
   <script>
     class RetroAppMobile extends Polymer.Element {
       static get is() { return 'retro-app-mobile'; }
@@ -70,9 +82,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           'page': {
             type: Number,
-            reflectToAttribute: true,
+            reflectToAttribute: true
+          },
+          'roomData': {
+            type: Object,
+            observer: '_roomDataChange'
+          },
+          'roomDataArray' :{
+            type:Array
           }
+
+          
         };
+      }
+
+      _toArray(obj) {
+            return Object.keys(obj).map(function(key) {
+                return {
+                    name: key,
+                    value: obj[key]
+                };
+            });
+        }
+
+
+      _roomDataChange(newValue, oldValue) {
+        console.log(newValue);
+        this.roomDataArray = this._toArray(newValue);
       }
 
       joinRoom() {
