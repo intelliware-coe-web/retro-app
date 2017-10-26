@@ -14,7 +14,7 @@
 
     <template is="dom-if" if="{{hasRooms(rooms)}}">
       <wired-listbox>
-        <template if="false" is="dom-repeat" items="{{roomsAsArray(rooms)}}">
+        <template is="dom-repeat" items="{{roomsAsArray(rooms)}}">
           <wired-item text="{{item.name}}" on-click="joinRoom"></wired-item>
         </template>
       </wired-listbox>
