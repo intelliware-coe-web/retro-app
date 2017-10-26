@@ -54,9 +54,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
     <firebase-document
-    path="/rooms"
-    data="{{roomData}}">
-  </firebase-document>
+      path="/rooms"
+      data="{{roomData}}">
+    </firebase-document>
+
+    <firebase-query id="addRetroQuery" path="/rooms/[[currentRoom]]/[[retroType]]"></firebase-query>
 
     <!-- Main content -->
     <iron-pages selected="[[page]]">
@@ -75,11 +77,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <section>
         <wired-card class="form">
-          <wired-combo id="retroType" selected="good">
-            <wired-item value="good" text="Good"></wired-item>
-            <wired-item value="bad" text="Bad"></wired-item>
-            <wired-item value="try" text="Try"></wired-item>
-            <wired-item value="banana" text="Banana"></wired-item>
+          <wired-combo id="retroType" selected="goods" value="retroType">
+            <wired-item value="goods" text="Goods"></wired-item>
+            <wired-item value="bads" text="Bads"></wired-item>
+            <wired-item value="tries" text="Tries"></wired-item>
           </wired-combo>
           <div>
             <wired-textarea id="retroText" rows="5"></wired-textarea>              
@@ -107,7 +108,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           'roomDataArray' :{
             type:Array
           },
-          'currentRoom' :{
+          'retroType': {
+            type: String
+          },
+          'currentRoom': {
             type: String
           }
         };
@@ -134,11 +138,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
       addRetroItem() {
         let retroData = {
-          type: this.$.retroType.value.value,
-          text: this.$.retroText.value 
+          authors: [this.user.displayName],
+          text: this.$.retroText.value
         };
 
-        console.log(retroData);
+        this.retroType = this.$.retroType.value.value;
+        this.$.addRetroQuery.ref.push(retroData);
       }
 
       ready() {
