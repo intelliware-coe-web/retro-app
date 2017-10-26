@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../../bower_components/wired-card/wired-card.html">
 <link rel="import" href="../../bower_components/wired-button/wired-button.html">
 <link rel="import" href="../../bower_components/wired-input/wired-input.html">
@@ -16,15 +17,22 @@
 
     <wired-card class="create-room">
       <h3>Create Room</h3>
-      <wired-input placeholder="Room name"></wired-input>
-      <wired-button text="Create"></wired-button>
+      <wired-input id="roomName" placeholder="Room name"></wired-input>
+      <wired-button text="Create" on-click="createRoom"></wired-button>
     </wired-card>
+
+    <firebase-query id="createRoomQuery" path="/rooms" />
 
   </template>
 
   <script>
     class CreateRoom extends Polymer.Element {
       static get is() { return 'create-room'; }
+
+      createRoom() {
+        this.$.createRoomQuery.ref.push({name: this.$.roomName.value});
+      }
+
     }
 
     window.customElements.define(CreateRoom.is, CreateRoom);
