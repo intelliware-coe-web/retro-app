@@ -60,6 +60,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </firebase-document>
 
     <firebase-query id="addRetroQuery" path="/rooms/[[currentRoom]]/[[retroType]]"></firebase-query>
+    <firebase-query id="addMemberToRoom" path="/rooms/[[currentRoom]]/members"></firebase-query>
+    
 
     <!-- Main content -->
     <iron-pages selected="[[page]]">
@@ -135,6 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       joinRoom(event) {
         this.page = 1;
         this.currentRoom = event.model.item.name;
+        this.$.addMemberToRoom.ref.push(this.user.displayName);
       }
         
       addRetroItem() {
