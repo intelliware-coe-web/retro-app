@@ -36,7 +36,8 @@
     "wired-spinner": "wiredjs/wired-spinner#^0.1.0"
   },
   "resolutions": {
-    "polymer": "^2.0.0"
+    "polymer": "^2.0.0",
+    "wired-radio": "^0.2.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0"
