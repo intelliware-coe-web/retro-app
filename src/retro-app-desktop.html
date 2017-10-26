@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="retro-app-desktop">
   <template>
     <style>
-      :host {
+       :host {
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
 
@@ -42,25 +42,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <firebase-app 
-      auth-domain="retro-c4375.firebaseapp.com"
-      database-url="https://retro-c4375.firebaseio.com"
-      storage-bucket="retro-c4375.appspot.com"
+    <firebase-app auth-domain="retro-c4375.firebaseapp.com" database-url="https://retro-c4375.firebaseio.com" storage-bucket="retro-c4375.appspot.com"
       api-key="AIzaSyBHCLv-UiI5unmoLU5aObmDqlXxvlmxqwc">
     </firebase-app>
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
 
     <!-- Main content -->
-    <iron-pages selected="[[page]]">
-      <section style="text-align: center;">
-            
-            <h1>Retro App</h1>
-            <create-room></create-room>
-            
-      </section>
+    <section style="text-align: center;">
+      <h1>Retro App</h1>
+      <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="create-room-page">
 
-    </iron-pages>
+        <div page-name="create-room-page">
+          <create-room></create-room>
+        </div>
+
+        <div page-name="view-room-page">
+          View Page Component
+        </div>
+
+      </iron-pages>
+    </section>
   </template>
 
   <script>
@@ -69,22 +71,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
-          page: {
-            type: Number,
+          pageName: {
+            type: String,
             reflectToAttribute: true
           }
         };
       }
 
-      goToRoomPage() {
-        this.page = 1;
-      }
-
       ready() {
         super.ready();
-        this.page = 0;
+        document.addEventListener('join-room', event => this.pageName = 'view-room-page');
       }
-    
     }
 
     window.customElements.define(RetroAppDesktop.is, RetroAppDesktop);

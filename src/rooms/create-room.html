@@ -30,7 +30,13 @@
       static get is() { return 'create-room'; }
 
       createRoom() {
-        this.$.createRoomQuery.ref.push({name: this.$.roomName.value});
+        this.$.createRoomQuery.ref
+          .push({name: this.$.roomName.value})
+          .then(this.dispatchJoinRoomEvent);
+      }
+
+      dispatchJoinRoomEvent(room) {
+        document.dispatchEvent(new CustomEvent('join-room', {detail: {roomKey: room.key}}));
       }
 
     }
