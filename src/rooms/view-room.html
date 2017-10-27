@@ -32,6 +32,7 @@
 
     <h3>Room: {{room.name}}</h3>
 
+<<<<<<< HEAD
     <div class="layout horizontal">
       <div id="good-column" class="flex retro-column">
         <h4>Good</h4>
@@ -59,6 +60,35 @@
       </div>
     </div>
       
+=======
+    <wired-card>
+      <h4>Good</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.goods)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
+    
+    <wired-card>
+      <h4>Bad</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.bads)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
+
+    <wired-card>
+      <h4>Try</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.trys)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
+
+>>>>>>> placing wired elements with paper on create
     <firebase-document path="/rooms/{{roomKey}}" data={{room}}></firebase-document>
 
   </template>
