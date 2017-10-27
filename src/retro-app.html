@@ -1,18 +1,26 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer/lib/utils/import-href.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 
 <dom-module id="retro-app">
   <link rel="lazy-import" href="retro-app-desktop.html">
   <link rel="lazy-import" href="retro-app-mobile.html">
 
   <template>
-      <template is="dom-if" if="{{isMobile()}}">
-        <retro-app-mobile></retro-app-mobile>
-        <h1></h1>
-      </template>
-      <template is="dom-if" if="{{!isMobile()}}">
-        <retro-app-desktop></retro-app-desktop>
-      </template>
+    <firebase-app 
+      auth-domain="retro-c4375.firebaseapp.com"
+      database-url="https://retro-c4375.firebaseio.com"
+      storage-bucket="retro-c4375.appspot.com"
+      api-key="AIzaSyBHCLv-UiI5unmoLU5aObmDqlXxvlmxqwc">
+    </firebase-app>
+
+    <template is="dom-if" if="{{isMobile()}}">
+      <retro-app-mobile></retro-app-mobile>
+      <h1></h1>
+    </template>
+    <template is="dom-if" if="{{!isMobile()}}">
+      <retro-app-desktop></retro-app-desktop>
+    </template>
   </template>
 
   <script>

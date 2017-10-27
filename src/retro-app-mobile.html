@@ -22,7 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/wired-card/wired-card.html">
 <link rel="import" href="../bower_components/wired-button/wired-button.html">
-<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../bower_components/wired-input/wired-input.html">
@@ -46,13 +45,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <firebase-app 
-      auth-domain="retro-c4375.firebaseapp.com"
-      database-url="https://retro-c4375.firebaseio.com"
-      storage-bucket="retro-c4375.appspot.com"
-      api-key="AIzaSyBHCLv-UiI5unmoLU5aObmDqlXxvlmxqwc">
-    </firebase-app>
-
     <retro-auth id="auth" user="{{user}}"></retro-auth>
     <firebase-document
       path="/rooms"
@@ -62,9 +54,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <firebase-query id="addRetroQuery" path="/rooms/[[currentRoom]]/[[retroType]]"></firebase-query>
 
     <!-- Main content -->
-    <iron-pages selected="[[page]]">
-
-      <section>
+    <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="join-room-page">
+      <div page-name="join-room-page">
         <h1>Mobile App Join Room</h1>
         <wired-input on-click="searchRooms" placeholder="search" ></wired-input>
 
@@ -73,10 +64,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <span>[[item.value.name]]</span>
                 <wired-button text="Join Room" on-click="joinRoom"></wired-button>
             </div>
-        </template>       
-      </section>
+        </template>    
+      </div>
 
-      <section>
+      <div page-name="create-stickies-page">
         <wired-card class="form">
           <wired-combo id="retroType" selected="goods" value="retroType">
             <wired-item value="goods" text="Goods"></wired-item>
@@ -88,7 +79,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <wired-button on-click="addRetroItem" text="Add"></wired-button>
         </wired-card>
-      </section>
+      </div>
+
     </iron-pages>
   </template>
     
@@ -98,8 +90,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
-          'page': {
-            type: Number,
+          'pageName': {
+            type: String,
             reflectToAttribute: true
           },
           'roomData': {
@@ -133,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       joinRoom(event) {
-        this.page = 1;
+        this.pageName = 'create-stickies-page';
         this.currentRoom = event.model.item.name;
       }
         
@@ -146,12 +138,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.retroType = this.$.retroType.value.value;
         this.$.addRetroQuery.ref.push(retroData);
       }
-
-      ready() {
-        super.ready();
-        this.page = 0;
-      }
-
     }
 
     window.customElements.define(RetroAppMobile.is, RetroAppMobile);
