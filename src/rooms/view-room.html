@@ -1,50 +1,49 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
-<link rel="import" href="../../bower_components/wired-card/wired-card.html">
-<link rel="import" href="../../bower_components/wired-button/wired-button.html">
-<link rel="import" href="../../bower_components/wired-input/wired-input.html">
-<link rel="import" href="../../bower_components/wired-item/wired-item.html">
-<link rel="import" href="../../bower_components/wired-listbox/wired-listbox.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="view-room">
   <template>
-
-    <style>
-      wired-card {
-        width: 20%;
-        height: 50%;
+    <style include="iron-flex">
+      paper-card {
+        min-width: 300px;
+        padding: 50px;
+      }
+      .retro-column {
+        width: 30%;
       }
     </style>
 
     <h3>Room: {{room.name}}</h3>
 
-    <wired-card>
-      <h4>Good</h4>
-      <wired-listbox>
-        <template is="dom-repeat" items="{{stickiesAsArray(room.goods)}}">
-          <wired-item text="{{item.text}}"></wired-item>
-        </template>
-      </wired-listbox>
-    </wired-card>
-    
-    <wired-card>
-      <h4>Bad</h4>
-      <wired-listbox>
-        <template is="dom-repeat" items="{{stickiesAsArray(room.bads)}}">
-          <wired-item text="{{item.text}}"></wired-item>
-        </template>
-      </wired-listbox>
-    </wired-card>
-
-    <wired-card>
-      <h4>Try</h4>
-      <wired-listbox>
-        <template is="dom-repeat" items="{{stickiesAsArray(room.trys)}}">
-          <wired-item text="{{item.text}}"></wired-item>
-        </template>
-      </wired-listbox>
-    </wired-card>
-
+    <div class="layout horizontal">
+      <div class="flex-1 retro-column">
+        <h4>Good</h4>
+        <div class="layout horizontal wrap">
+          <template is="dom-repeat" items="{{stickiesAsArray(room.goods)}}">
+            <paper-card class="flex">{{item.text}}</paper-card>
+          </template>
+        </div>
+      </div>
+      <div class="flex-1 retro-column">
+        <h4>Bad</h4>
+        <div class="layout horizontal wrap">
+          <template is="dom-repeat" items="{{stickiesAsArray(room.bads)}}">
+            <paper-card class="flex">{{item.text}}</paper-card>
+          </template>
+        </div>
+      </div>
+      <div class="flex-1 retro-column">
+        <h4>Try</h4>
+        <div class="layout horizontal wrap">
+          <template is="dom-repeat" items="{{stickiesAsArray(room.trys)}}">
+            <paper-card class="flex">{{item.text}}</paper-card>
+          </template>
+        </div>
+      </div>
+    </div>
+      
     <firebase-document path="/rooms/{{roomKey}}" data={{room}}></firebase-document>
 
   </template>
