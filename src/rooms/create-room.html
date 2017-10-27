@@ -1,10 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
-<link rel="import" href="../../bower_components/wired-card/wired-card.html">
-<link rel="import" href="../../bower_components/wired-button/wired-button.html">
-<link rel="import" href="../../bower_components/wired-input/wired-input.html">
-<link rel="import" href="../../bower_components/wired-combo/wired-combo.html">
-<link rel="import" href="../../bower_components/wired-item/wired-item.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
 
@@ -19,23 +20,24 @@
       }
     </style>
 
-    <wired-card class="create-room">
+    <paper-card class="create-room">
       <h3>Create Room</h3>
       <div>
-          <wired-input id="roomName" placeholder="Room name"></wired-input>
-          <wired-button text="Create" on-click="createRoom"></wired-button>
+          <paper-input id="roomName" placeholder="Room name" type="text"></paper-input>
+          <paper-button on-click="createRoom">Create</paper-button>
       </div>
   
       <div>
-          <wired-combo id="roomSelection" selected="">
-            <template is="dom-repeat" items="[[roomDataArray]]">
-              <wired-item value="[[item.name]]" text="[[item.value.name]]"></wired-item>
-            </template>
-          </wired-combo>
-          <wired-button text="Copy from Previous" on-click="copyRoom"></wired-button>
+          <paper-dropdown-menu id="roomSelection" label="Previous Rooms">
+              <paper-listbox slot="dropdown-content" selected="">
+                <template is="dom-repeat" items="[[roomDataArray]]">
+                    <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
+                </template>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          <paper-button on-click="copyRoom">Copy from Previous</paper-button>
       </div>
-
-    </wired-card>
+    </paper-card>
 
     <firebase-document path="/rooms" data="{{roomData}}"/>
     <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>

@@ -18,34 +18,32 @@
 
     <h3>Room: {{room.name}}</h3>
 
+    <wired-card>
+      <h4>Good</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.goods)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
+    
+    <wired-card>
+      <h4>Bad</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.bads)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
 
-      <wired-card>
-        <h4>Good</h4>
-        <wired-listbox>
-          <template is="dom-repeat" items="{{stickiesAsArray(room.goods)}}">
-            <wired-item text="{{item.text}}"></wired-item>
-          </template>
-        </wired-listbox>
-      </wired-card>
-      
-      <wired-card>
-        <h4>Bad</h4>
-        <wired-listbox>
-          <template is="dom-repeat" items="{{stickiesAsArray(room.bads)}}">
-            <wired-item text="{{item.text}}"></wired-item>
-          </template>
-        </wired-listbox>
-      </wired-card>
-
-      <wired-card>
-        <h4>Try</h4>
-        <wired-listbox>
-          <template is="dom-repeat" items="{{stickiesAsArray(room.trys)}}">
-            <wired-item text="{{item.text}}"></wired-item>
-          </template>
-        </wired-listbox>
-      </wired-card>
-
+    <wired-card>
+      <h4>Try</h4>
+      <wired-listbox>
+        <template is="dom-repeat" items="{{stickiesAsArray(room.trys)}}">
+          <wired-item text="{{item.text}}"></wired-item>
+        </template>
+      </wired-listbox>
+    </wired-card>
 
     <firebase-document path="/rooms/{{roomKey}}" data={{room}}></firebase-document>
 
