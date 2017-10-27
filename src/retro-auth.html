@@ -1,109 +1,162 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
 
 <dom-module id="retro-auth">
-    <template>
-        <style include="iron-flex iron-flex-alignment">
-            paper-dialog {
-                padding: 15px;
-            }
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      paper-dialog {
+      padding: 15px;
+      }
 
-            .google-sign-in {
-                display: inline-block;
-                background: #4285f4;
-                color: white;
-                width: 190px;
-                padding: 0;
-                border-radius: 5px;
-                white-space: nowrap;
-            }
+      .google-sign-in {
+        display: inline-block;
+        background: #4285f4;
+        color: white;
+        width: 190px;
+        padding: 0;
+        border-radius: 5px;
+        white-space: nowrap;
+      }
 
-            .google-sign-in:hover {
-                cursor: pointer;
-            }
+      .google-sign-in:hover {
+        cursor: pointer;
+      }
 
-            .google-sign-in-icon {
-                background: url('/images/google-sign-in/g-normal.png') transparent 5px 50% no-repeat;
-                display: inline-block;
-                vertical-align: middle;
-                width: 42px;
-                height: 42px;
-                border-right: #2265d4 1px solid;
-            }
+      .google-sign-in-icon {
+        background: url('/images/google-sign-in/g-normal.png') transparent 5px 50% no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+        width: 42px;
+        height: 42px;
+        border-right: #2265d4 1px solid;
+      }
 
-            .google-sign-in-label {
-                display: inline-block;
-                vertical-align: middle;
-                padding-left: 42px;
-                padding-right: 42px;
-                font-size: 14px;
-                font-weight: bold;
-                /* Use the Roboto font that is loaded in the <head> */
-                font-family: 'Roboto', sans-serif;
-            }
-        </style>
+      .google-sign-in-label {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 42px;
+        padding-right: 42px;
+        font-size: 14px;
+        font-weight: bold;
+        /* Use the Roboto font that is loaded in the <head> */
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
 
 
-        
-        <firebase-auth id="auth" user="{{user}}" provider="google" status-known="{{statusKnown}}">
-        </firebase-auth>
 
-        <paper-dialog modal
-                      opened="[[!user]]"
-                      entry-animation="scale-up-animation"
-                      exit-animation="fade-out-animation">
-            <h2>Please sign in</h2>
-            <div class="google-sign-in"
-                  tabindex="0"
-                  on-click="googleSignIn">
-                <span class="google-sign-in-icon"></span>
-                <span class="google-sign-in-label">Google</span>
-            </div>
-        </paper-dialog>
-    </template>
+    <firebase-auth id="auth" user="{{user}}" provider="google" status-known="{{statusKnown}}">
+    </firebase-auth>
 
-    <script>
+    <paper-dialog modal
+                opened="[[!user]]"
+                entry-animation="scale-up-animation"
+                exit-animation="fade-out-animation">
 
+      <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="sign-in">
+        <div page-name="sign-in">
+          <h2>Please sign in</h2>
+          <div class="google-sign-in"
+              tabindex="0"
+              on-click="googleSignIn">
+            <span class="google-sign-in-icon"></span>
+            <span class="google-sign-in-label">Google</span>
+          </div>
+          <hr>
+          <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
+          <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+          <div class="layout horizontal" style="margin-top: 15px">
+            <paper-button class="flex" raised on-click="emailSignIn">Sign In</paper-button>
+          </div>
+          <hr>
+          <div class="layout horizontal" style="margin-top: 15px">
+            <paper-button class="flex" raised on-click="goToCreate">Create</paper-button>
+          </div>
+        </div>
+        <div page-name="create-login">
+          <h2>Create Account</h2>
+          <paper-input id="name" label="Name" required auto-validate type="text"></paper-input>
+          <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
+          <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+          <paper-input id="password2" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+          <div class="layout horizontal" style="margin-top: 15px">
+            <paper-button class="flex" raised on-click="createUser">Sign In</paper-button>
+          </div>
+        </div>
+      </iron-pages>
+
+    </paper-dialog>
+  </template>
+
+  <script>
     class RetroAuth extends Polymer.Element {
-          static get is() { return 'retro-auth'; }
+      static get is() { return 'retro-auth'; }
 
-          static get properties() {
-            return {
-              user: {
-                type: Object,
-                notify: true
-              },
-              statusKnown: {
-                  type: Object
-              }
-            };
+      static get properties() {
+        return {
+          user: {
+            type: Object,
+            notify: true
+          },
+          statusKnown: {
+            type: Object
+          },
+          pageName: {
+            type: String
           }
+        };
+      }
 
-          googleSignIn() {
-            this.$.auth.signInWithPopup()
-                .then(this.handleSuccess)
-                .catch(this.handleError);
-          }
+      goToCreate() {
+        this.pageName = 'create-login';
+      }
 
-          handleSuccess(response) {
-            this.user = response.user;
-            console.info(this.user);
-          }
+      createUser() {
+        this.$.auth.createUserWithEmailAndPassword(this.$.email.value, this.$.password.value)
+          .then(this.handleCreateSuccess)
+          .catch(this.handleError);
+      }
 
-          handleError(error) {
-              console.error(error.code);
-          }
+      emailSignIn() {
+        this.$.auth.signInWithEmailAndPassword(this.$.email.value, this.$.password.value)
+          .then(this.handleSuccess)
+          .catch(this.handleError);
+      }
 
-          signOut() {
-            this.$.auth.signOut();
-            this.user = null;
-          }
+      googleSignIn() {
+        this.$.auth.signInWithPopup()
+          .then(this.handleSuccess)
+          .catch(this.handleError);
+      }
 
-        }
+      handleCreateSuccess(response) {
+        this.handleSuccess(response);
+        this.user.displayName = this.$.name.value;
+      }
 
-        window.customElements.define(RetroAuth.is, RetroAuth);
-    </script>
+      handleSuccess(response) {
+        this.user = response.user;
+        console.info(this.user);  
+      }
+
+      handleError(error) {
+        console.error(error.code);
+      }
+
+      signOut() {
+        this.$.auth.signOut();
+        this.user = null;
+      }
+
+    }
+
+    window.customElements.define(RetroAuth.is, RetroAuth);
+  </script>
 </dom-module>
