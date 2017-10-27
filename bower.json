@@ -35,7 +35,11 @@
     "wired-tooltip": "wiredjs/wired-tooltip#^0.1.2",
     "wired-spinner": "wiredjs/wired-spinner#^0.1.0",
     "polymerfire": "^2.2.1",
-    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
+    "paper-card": "PolymerElements/paper-card#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.2",
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0",
