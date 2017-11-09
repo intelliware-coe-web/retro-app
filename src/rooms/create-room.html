@@ -29,12 +29,12 @@
   
       <div>
           <paper-dropdown-menu id="roomSelection" label="Previous Rooms">
-              <paper-listbox slot="dropdown-content" selected="">
-                <template is="dom-repeat" items="[[roomDataArray]]">
-                    <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
-                </template>
-              </paper-listbox>
-            </paper-dropdown-menu>
+            <paper-listbox slot="dropdown-content" selected="">
+              <template is="dom-repeat" items="[[roomDataArray]]">
+                  <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
           <paper-button on-click="copyRoom">Copy from Previous</paper-button>
       </div>
     </paper-card>
