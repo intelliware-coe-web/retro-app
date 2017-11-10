@@ -1,23 +1,18 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
-<link rel="import" href="../../bower_components/wired-card/wired-card.html">
-<link rel="import" href="../../bower_components/wired-item/wired-item.html">
-<link rel="import" href="../../bower_components/wired-listbox/wired-listbox.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 
 <dom-module id="list-rooms">
   <template>
-
     <style></style>
 
     <h3>Existing Rooms</h3>
 
     <template is="dom-if" if="{{hasRooms(rooms)}}">
-      <wired-listbox>
         <template is="dom-repeat" items="{{roomsAsArray(rooms)}}">
-          <wired-item text="{{item.name}}" on-click="joinRoom"></wired-item>
+          <paper-button on-click="joinRoom">{{item.name}}</paper-button>
         </template>
-      </wired-listbox>
     </template>
     
     <firebase-document path="/rooms" data={{rooms}} />
