@@ -33,7 +33,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 
-
 <link rel="import" href="retro-auth.html">
 
 <dom-module id="retro-app-mobile">
@@ -109,15 +108,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div page-name="create-stickies-page">
         <paper-card class="form" id="sticky">
-          <paper-dropdown-menu id="retroType" label="Type">
-            <paper-listbox slot="dropdown-content" selected="">
-              <paper-item value="goods">Goods</paper-item>
-              <paper-item value="bads">Bads</paper-item>
-              <paper-item value="tries">Tries</paper-item>
+          <paper-dropdown-menu id="retroType" label="Type" selected="">
+            <paper-listbox slot="dropdown-content">
+              <paper-item>good</paper-item>
+              <paper-item>bad</paper-item>
+              <paper-item>try</paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
           <div>
-            <paper-textarea id="retroText" rows="10" label="Description"></paper-textarea>
+            <paper-textarea id="retroText" rows="10" placeholder="Description"></paper-textarea>
           </div>
           <paper-button id="backButton" on-click="goBack">Back</paper-button>
           <paper-button id="addRetroItem" class="indigo" on-click="addRetroItem">Add</paper-button>
@@ -178,13 +177,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
         
       addRetroItem() {
-        let retroData = {
-          authors: [this.user.displayName],
-          text: this.$.retroText.value
-        };
+        let retroText = this.$.retroText.value;
 
-        this.retroType = this.$.retroType.value.value;
-        this.$.addRetroQuery.ref.push(retroData);
+        if (retroText) {
+          let retroData = {
+            authors: [this.user.displayName],
+            text: this.$.retroText.value,
+            type: this.$.retroType.value
+          };
+
+          this.retroType = this.$.retroType.value;
+          this.$.addRetroQuery.ref.push(retroData);
+          this.clear();
+        }
+      }
+
+      clear() {
+        this.$.retroText.value = '';
+        this.$.retroType.value = '';
       }
     }
 

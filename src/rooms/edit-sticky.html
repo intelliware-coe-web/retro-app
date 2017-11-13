@@ -1,0 +1,72 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="edit-sticky">
+  <template>
+    <style include="shared-styles">
+      paper-dialog {
+        padding: 20px;
+      }
+    </style>
+
+    <firebase-document id="updateRetroQuery" path={{retroQueryUrl}} data={{sticky}}></firebase-document>
+
+    <paper-dialog id="dialog">
+      <paper-textarea id="retroText" rows="10" placeholder="Description" value={{sticky.text}}></paper-textarea>
+      </paper-card>        
+      <paper-input elevation="2" value={{sticky.assignedTo}} type="text" placeholder="Assign To"></paper-input>
+      <paper-button id="deleteSticky" on-click="delete">Delete</paper-button>
+      <paper-button id="updateSticky" class="indigo" on-click="updateRetroItem">Update</paper-button>
+    </paper-dialog>
+  </template>
+
+  <script>
+    class EditSticky extends Polymer.Element {
+      static get is() { return 'edit-sticky'; }
+
+      static get properties() {
+        return {
+          roomKey: String,
+          selectedSticky: Object,
+          sticky: {
+            type: Object
+          }
+        };
+      }
+
+      open() {
+        const type = this.selectedSticky.value.type;
+        const key = this.selectedSticky.key;
+
+        this.retroQueryUrl = '/rooms/' + this.roomKey + '/' + type + '/' + key;
+        this.$.dialog.open();
+      }
+
+      close() {
+        this.$.dialog.close();
+      }
+
+      updateRetroItem() {
+        this.close();
+      }
+
+      delete() {
+        this.set('sticky.deleted', true);
+        this.close();
+      }
+
+    }
+
+    window.customElements.define(EditSticky.is, EditSticky);
+  </script>
+</dom-module>

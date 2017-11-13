@@ -77,7 +77,7 @@
 
       createRoom() {
         this.$.createRoomQuery.ref
-          .push({name: this.$.roomName.value})
+          .push({name: this.$.roomName.value, date: new Date()})
           .then(this.dispatchJoinRoomEvent);
       }
 
