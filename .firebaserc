@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "retro-c4375"
+    "default": "retro-app-19e3c",
+    "staging": "retro-app-19e3c"
   }
 }

@@ -131,7 +131,7 @@
       }
 
       googleSignIn() {
-        this.$.auth.signInWithPopup()
+        this.$.auth.signInWithPopup('google')
           .then(this.handleSuccess)
           .catch(this.handleError);
       }
