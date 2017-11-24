@@ -88,24 +88,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
     <!-- Load your application shell -->
-    <link rel="import" href="src/retro-app.html">
-
-    <!-- Add any global styles for body, document, etc. -->
-    <style>
-      body {
-        margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        background-color: white;
-      }
-    </style>
+    <link rel="import" href="src/retro-app-wrapper.html">
+    
   </head>
+
   <body>
-    <retro-app></retro-app>
-    <noscript>
-      Please enable JavaScript to view this website.
-    </noscript>
+    <noscript>Please enable JavaScript to view this website.</noscript>
+    <retro-app-wrapper></retro-app-wrapper>
     <!-- Built with love using Polymer Starter Kit -->
   </body>
 </html>

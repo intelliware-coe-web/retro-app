@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../rooms/create-room.html">
+<link rel="import" href="../rooms/list-rooms.html">
+
+<dom-module id="landing-page">
+  
+  <template>
+    <style is="custom-style">
+      .join-room-button {
+            margin: 5px 25px;
+            font-size: 20px;
+            display: block;
+            text-align: center;
+            padding: 25px;
+            background-color: var(--paper-green-500);
+            color: white;
+        }
+    </style>
+
+      <firebase-document path="/rooms" data="{{roomData}}"></firebase-document>
+      <h1>Mobile - Landing Page</h1>
+
+      <template is="dom-repeat" items="[[roomDataArray]]">
+          <a class="join-room-button" href="/rooms/{{item.name}}">[[item.value.name]]</a>
+      </template>   
+  </template>
+
+  <script>
+    class LandingPage extends Polymer.Element {
+      static get is() { return 'landing-page'; }
+
+      static get properties() {
+        return {
+          roomData: {
+            type: Object,
+            observer: '_roomDataChange'
+          },
+          roomDataArray: Array
+        }
+      }
+
+      _toArray(obj) {
+          return Object.keys(obj).map(function(key) {
+              return {
+                  name: key,
+                  value: obj[key]
+              };
+          });
+      }
+
+      _roomDataChange(newValue, oldValue) {
+        this.roomDataArray = this._toArray(newValue);
+      }
+
+    }
+
+    window.customElements.define(LandingPage.is, LandingPage);
+  </script>
+</dom-module>

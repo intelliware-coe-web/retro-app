@@ -1,0 +1,128 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+
+<link rel="import" href="../retro-auth.html">
+<link rel="import" href="./room.page.html">
+<link rel="import" href="./landing.page.html">
+
+<dom-module id="retro-app">
+
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+      }
+
+      paper-button.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+
+      [page-name] {
+        padding: 15px;
+      }
+
+      #sticky {
+        height: 95vh;
+        padding: 20px;
+        width: 100%;
+      }
+
+      #addRetroItem {
+        bottom: 20px;
+        position: absolute;
+        right: 20px;
+      }
+
+      #backButton {
+        bottom: 20px;
+        position: absolute;
+      }
+    </style>
+
+    <retro-auth id="auth" user="{{user}}"></retro-auth>
+    
+    <firebase-query id="addRetroQuery" path="/rooms/[[currentRoom]]/[[retroType]]"></firebase-query>
+    <firebase-query id="addMemberToRoom" path="/rooms/[[currentRoom]]/members"></firebase-query>
+    
+    <h1>Retro App</h1>
+
+    <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+        <landing-page name="home"></landing-page>
+        <room-page name="rooms"></room-page>
+    </iron-pages>
+  </template>
+    
+  <script>
+    class RetroAppMobile extends Polymer.Element {
+      static get is() { return 'retro-app'; }
+
+      static get properties() {
+        return {
+          id: String,
+          retroType: String,
+          currentRoom: String
+        };
+      }
+
+      joinRoom(event) {
+        this.currentRoom = event.model.item.name;
+        this.$.addMemberToRoom.ref.push(this.user.displayName);
+      }
+
+      goBack() {
+        this.pageName = 'join-room-page';
+      }
+        
+      addRetroItem() {
+        let retroText = this.$.retroText.value;
+
+        if (retroText) {
+          let retroData = {
+            authors: [this.user.displayName],
+            text: this.$.retroText.value,
+            type: this.$.retroType.value
+          };
+
+          this.retroType = this.$.retroType.value;
+          this.$.addRetroQuery.ref.push(retroData);
+          this.clear();
+        }
+      }
+
+      clear() {
+        this.$.retroText.value = '';
+        this.$.retroType.value = '';
+      }
+    }
+
+    window.customElements.define(RetroAppMobile.is, RetroAppMobile);
+  </script>
+</dom-module>
