@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="retro-app-header">
+
+  <template>
+    <style include="shared-styles iron-flex iron-flex-alignment">
+      :host { 
+        display:block;
+      }
+
+      .app-header {
+        background-color: white;
+        color: #004785;
+      }
+
+      .app-header h1{
+        font-weight: normal;
+        font-size: 3em;
+      }
+    </style>
+
+    <div class="layout horizontal around-justified center app-header">
+      <h1>Retro App</h1>
+      <div class="layout horizontal end center">        
+        <span>[[user.displayName]]</span>
+        <template is="dom-if" if="[[user]]">
+          <paper-button on-click="logout">Logout</paper-button>
+        </template>
+      </div>
+    </div> 
+  </template>
+
+  <script>
+    class RetroAppHeader extends Polymer.Element {
+      static get is() { return 'retro-app-header'; }
+
+      static get properties() {
+        return { 
+          user: {
+            type: Object,
+            observer: '_userChanged'
+          }
+        };
+      }
+
+      logout() {
+        this._dispatchLogoutEvent();
+      }
+
+      _userChanged(newValue, oldValue) {
+        console.log(newValue, oldValue);
+      }
+
+      _dispatchLogoutEvent() {
+        this.dispatchEvent(new CustomEvent('on-logout'));
+      }
+    }
+
+    window.customElements.define(RetroAppHeader.is, RetroAppHeader);
+  </script>
+</dom-module>
