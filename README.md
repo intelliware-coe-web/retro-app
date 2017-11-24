@@ -1,6 +1,7 @@
 # Retro App
 
-[![Build Status](https://travis-ci.org/PolymerElements/polymer-starter-kit.svg?branch=master)](https://travis-ci.org/PolymerElements/polymer-starter-kit)
+[![Build Status](https://travis-ci.org/intelliware-coe-web/retro-app.svg?branch=master)](https://travis-ci.org/intelliware-coe-web/retro-app)
+[![Maintainability](https://api.codeclimate.com/v1/badges/001cbf49e57549ce5b9b/maintainability)](https://codeclimate.com/github/intelliware-coe-web/retro-app/maintainability)
 
 This template is a starting point for building apps using a drawer-based
 layout. The layout is provided by `app-layout` elements.
@@ -44,12 +45,6 @@ First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
 Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com)
 
     npm install -g bower
-
-##### Initialize project from template
-
-    mkdir my-app
-    cd my-app
-    polymer init polymer-2-starter-kit
 
 ### Start the development server
 
