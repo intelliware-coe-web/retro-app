@@ -7,7 +7,6 @@
   "dependencies": {
     "app-layout": "PolymerElements/app-layout#^2.0.0",
     "app-route": "PolymerElements/app-route#^2.0.3",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
     "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^2.0.0",
     "iron-media-query": "PolymerElements/iron-media-query#^2.0.0",
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
@@ -15,25 +14,6 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
     "polymer": "Polymer/polymer#^2.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "wired-lib": "wiredjs/wired-lib#^0.1.1",
-    "wired-button": "wiredjs/wired-button#^0.2.0",
-    "wired-checkbox": "wiredjs/wired-checkbox#^0.2.0",
-    "wired-radio": "wiredjs/wired-radio#^0.2.0",
-    "wired-radio-group": "wiredjs/wired-radio-group#^0.1.0",
-    "wired-toggle": "wiredjs/wired-toggle#^0.2.0",
-    "wired-item": "wiredjs/wired-item#^0.1.1",
-    "wired-listbox": "wiredjs/wired-listbox#^0.2.0",
-    "wired-progress": "wiredjs/wired-progress#^0.1.0",
-    "wired-input": "wiredjs/wired-input#^0.2.0",
-    "wired-textarea": "wiredjs/wired-textarea#^0.2.0",
-    "wired-card": "wiredjs/wired-card#^0.1.1",
-    "wired-combo": "wiredjs/wired-combo#^0.2.0",
-    "wired-icon-button": "wiredjs/wired-icon-button#^0.1.1",
-    "wired-menu-item": "wiredjs/wired-menu-item#^0.1.1",
-    "wired-menu-bar": "wiredjs/wired-menu-bar#^0.1.0",
-    "wired-slider": "wiredjs/wired-slider#^0.1.0",
-    "wired-tooltip": "wiredjs/wired-tooltip#^0.1.2",
-    "wired-spinner": "wiredjs/wired-spinner#^0.1.0",
     "polymerfire": "^2.2.1",
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
@@ -42,11 +22,14 @@
     "paper-input": "PolymerElements/paper-input#^2.0.3",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
-    "paper-menu": "PolymerElements/paper-menu#^1.3.0"
+    "paper-menu": "PolymerElements/paper-menu#^1.3.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.1"
   },
   "resolutions": {
     "polymer": "^2.0.0",
-    "wired-radio": "^0.2.0"
+    "iron-selector": "^2.0.0",
+    "webcomponentsjs": "^v1.0.2",
+    "iron-flex-layout": "^2.0.1"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0"
