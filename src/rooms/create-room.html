@@ -7,40 +7,37 @@
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
+<link rel="import" href="../retro-app-theme.html">
 
 <dom-module id="create-room">
 
   <template>
 
-    <style>
-      .create-room {
-        padding: 5px 75px 25px 75px;
-        text-align: center;
-      }
-    </style>
+      <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment"></style>
 
-    <paper-card class="create-room">
-      <h3>Create Room</h3>
-      <div>
-        <paper-input id="roomName" placeholder="Room name" type="text"></paper-input>
-        <paper-button on-click="createRoom">Create</paper-button>
-      </div>
+      <firebase-document path="/rooms" data="{{roomData}}"/>
+      <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>
+
+        <h2>Start New Session</h2>
+        <div>
+          <paper-input id="roomName" placeholder="Room name" type="text"></paper-input>
+          <paper-button class="primary" on-click="createRoom">Create</paper-button>
+        </div>
   
-      <div>
-        <paper-dropdown-menu id="roomSelection" label="Previous Rooms">
-          <paper-listbox slot="dropdown-content" selected="">
-            <template is="dom-repeat" items="[[roomDataArray]]">
-                <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <paper-button on-click="copyRoom">Copy from Previous</paper-button>
-      </div>
-    </paper-card>
-
-    <firebase-document path="/rooms" data="{{roomData}}"/>
-    <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>
+        <h3>Copy Previous Session</h3>
+        <div>
+          <paper-dropdown-menu id="roomSelection" label="Previous Rooms" style="width: 100%;">
+            <paper-listbox slot="dropdown-content" selected="">
+              <template is="dom-repeat" items="[[roomDataArray]]">
+                  <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+          <br />
+          <paper-button class="secondary" on-click="copyRoom">Copy from Previous</paper-button>
+        </div>
 
   </template>
 

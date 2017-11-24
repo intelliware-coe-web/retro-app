@@ -1,35 +1,45 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../retro-app-theme.html">
+<link rel="import" href="../retro-app-icons.html">
 
 <dom-module id="retro-app-header">
 
   <template>
-    <style include="shared-styles iron-flex iron-flex-alignment">
-      :host { 
-        display:block;
-      }
 
-      .app-header {
-        background-color: white;
-        color: #004785;
-      }
+    <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment">
 
-      .app-header h1{
-        font-weight: normal;
-        font-size: 3em;
+      .app-header-submenu {
+        color: var(--app-primary-color);
+        font-size: 18px;
+      }
+      .app-header-submenu paper-button { text-transform: capitalize; }
+
+      .logo {
+        width: 1em;
+        height: 1em;
+        border: 2px solid var(--app-primary-color);
+        border-radius: 50%;
+        padding: 5px;
       }
     </style>
+    
+    <div class="layout horizontal center justified app-header">
+      <h1>
+        <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>
+        Retro App
+      </h1>
 
-    <div class="layout horizontal around-justified center app-header">
-      <h1>Retro App</h1>
-      <div class="layout horizontal end center">        
-        <span>[[user.displayName]]</span>
+      <div class="layout horizontal center app-header-submenu">
         <template is="dom-if" if="[[user]]">
-          <paper-button on-click="logout">Logout</paper-button>
+            <span>[[user.displayName]]</span>
+            <paper-button on-click="logout">Logout</paper-button>
         </template>
       </div>
-    </div> 
+    </div>
   </template>
 
   <script>

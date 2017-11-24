@@ -9,15 +9,8 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
-<link rel="import" href="../shared-styles.html">
-
 <dom-module id="edit-sticky">
   <template>
-    <style include="shared-styles">
-      paper-dialog {
-        padding: 20px;
-      }
-    </style>
 
     <firebase-document id="updateRetroQuery" path={{retroQueryUrl}} data={{sticky}}></firebase-document>
 

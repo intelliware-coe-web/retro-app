@@ -1,20 +1,72 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 <style is="custom-style">
-      @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+  @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 
-      :root {
-        --app-primary-color: #72C2B9;
-        --app-secondary-color: #3C3E50;
-      }
+  :root {
+    --app-body-color: #F7F8F8;
+    --app-primary-color: #72C2B9;
+    --app-secondary-color: #3C3E50;
+  }
 
-      body {
-        background: white;
-        font-family: 'Lato', sans-serif;
-        font-weight: 200;
-        font-size: 16px;
-      }
-
-      
+  body {
+    background: var(--app-body-color);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    max-width: 1200px;
+    margin: auto;
+  }
 </style>
-  
+
+<dom-module id="retro-app-theme">
+  <template>
+    <style>
+
+      paper-button.primary {
+        border-radius:  50px;
+        background: var(--app-primary-color);
+        color: white;
+        font-size: 12px;
+      }
+
+      paper-button.secondary {
+        border-radius:  50px;
+        background: transparent;
+        border: 1px solid var(--app-primary-color);
+        color: var(--app-primary-color);
+        font-size: 12px;
+      }
+
+      h1 {
+        color: var(--app-primary-color);
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 40px;
+      }
+
+      h2 {
+        text-align: left;
+        color: black;
+        font-weight: 300;
+        font-size: 26px;
+      }
+
+      h3 {
+        text-align: left;
+        color: black;
+        font-weight: 300;
+        font-size: 22px;
+      }
+
+      h4 {
+        text-align: left;
+        color: var(--app-primary-color);
+        font-weight: 300;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </template>
+
+</dom-module>

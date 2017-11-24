@@ -5,13 +5,17 @@
 
 <dom-module id="list-rooms">
   <template>
-    <style></style>
 
-    <h3>Existing Rooms</h3>
+    <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment"></style>
+
+    <h2>Existing Rooms</h2>
 
     <template is="dom-if" if="{{hasRooms(rooms)}}">
         <template is="dom-repeat" items="{{roomsAsArray(rooms)}}">
-          <paper-button on-click="joinRoom">{{item.name}}</paper-button>
+          <div>
+            <h4>{{item.name}}</h4>
+            <paper-button class="primary" on-click="joinRoom">Join</paper-button>
+          </div>
         </template>
     </template>
     
