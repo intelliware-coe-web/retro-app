@@ -5,6 +5,7 @@
 
 <link rel="import" href="../my-icons.html">
 <link rel="import" href="../retro-auth.html">
+<link rel="import" href="../components/retro-app-header.html">
 <link rel="import" href="../desktop/landing.page.html">
 <link rel="import" href="../rooms/view-room.html">>
 
@@ -19,6 +20,8 @@
     </style>
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
+
+    <retro-app-header id="header" user="{{user}}"></retro-app-header>
     <section style="text-align: center;">
       <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
         <landing-page name="home"></landing-page>
@@ -43,6 +46,15 @@
           subRoute: String,
           rootPath: String
         };
+      }
+
+      ready() {
+        super.ready();
+        this.$.header.addEventListener('on-logout', event => this._logout(event));
+      }
+    
+      _logout(event) {
+        this.$.auth.signOut();
       }
 
     }
