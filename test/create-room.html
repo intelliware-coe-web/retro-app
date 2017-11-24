@@ -20,23 +20,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../bower_components/web-component-tester/browser.js"></script>
 
     <!-- Import the element to test -->
-    <link rel="import" href="../src/my-view1.html">
+    <link rel="import" href="../src/rooms/create-room.html">
   </head>
   <body>
-    <test-fixture id="BasicView">
+    <test-fixture id="CreateRoomView">
       <template>
-        <my-view1></my-view1>
+        <create-room></create-room>
       </template>
     </test-fixture>
 
     <script>
-      suite('my-view1 tests', function() {
-        test('Number in circle should be 1', function() {
-          var myView = fixture('BasicView');
-          var circle = myView.shadowRoot.querySelector('.circle');
-          assert.equal(circle.textContent, '1');
+      suite('<create-room>', function() {
+        test('Title on component should be there', function() {
+          var createRoomElement = fixture('CreateRoomView');
+          var title = createRoomElement.shadowRoot.querySelector('h3');
+          assert.equal(title.textContent, 'Create Room');
         });
       });
+
+      a11ySuite('CreateRoomView');
     </script>
   </body>
 </html>
