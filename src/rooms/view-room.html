@@ -43,8 +43,8 @@
       }
 
     </style>
-
-    <h3>Room: {{room.name}}</h3>
+    <a href="/home" style="position: absolute; top: 10px; left: 25px;">&lt; Home</a>
+    <h3>Room: {{room.name}} {{roomKey}}</h3>
 
     <div class="layout horizontal">
       <div id="good-column" class="flex retro-column">
@@ -112,7 +112,6 @@
       
       edit(event) {        
         let model = event.model;
-        console.log(model);
         this.selectedSticky = model.item;
         this.$.modifySticky.open();
       }

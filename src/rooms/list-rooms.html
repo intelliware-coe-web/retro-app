@@ -35,7 +35,7 @@
 
       joinRoom(event) {
         let roomKey = event.model.item.key;
-        document.dispatchEvent(new CustomEvent('on-join-room', {detail: {roomKey: roomKey}}));
+        document.location.pathname = '/rooms/' + roomKey;
       }
     }
 

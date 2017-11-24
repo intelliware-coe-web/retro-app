@@ -1,67 +1,40 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
-<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/wired-card/wired-card.html">
-<link rel="import" href="../bower_components/wired-button/wired-button.html">
-<link rel="import" href="../bower_components/wired-input/wired-input.html">
+
 
 <link rel="import" href="retro-auth.html">
 
-<link rel="import" href="./rooms/create-room.html">
-<link rel="import" href="./rooms/view-room.html">
-<link rel="import" href="./rooms/list-rooms.html">
+<link rel="import" href="./desktop/landing.page.html">
+<link rel="import" href="./rooms/view-room.html">>
 
 <link rel="import" href="my-icons.html">
 
 <dom-module id="retro-app-desktop">
   <template>
     <style>
-       :host {
+      :host {
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
-
         display: block;
       }
     </style>
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
 
-    <!-- Main content -->
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
+    <app-route route="{{subRoute}}" pattern="/:id" data="{{subRouteData}}"></app-route>
+    
     <section style="text-align: center;">
-      <h1>Retro App</h1>
-      <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="create-room-page">
-
-        <div page-name="create-room-page">
-          <create-room></create-room>
-          <div>
-            <list-rooms></list-rooms>
-          </div>
-        </div>
-
-        <div page-name="view-room-page">
-          <view-room room-key="{{roomKey}}"/>
-        </div>
-
+      
+      <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+        <landing-page name="home"></landing-page>
+        <view-room name="rooms" room-key="[[subRouteData.id]]"></view-room>
       </iron-pages>
+
     </section>
   </template>
 
@@ -71,21 +44,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
-          pageName: {
+          page: {
             type: String,
             reflectToAttribute: true
-          }
+          },
+          routeData: Object,
+          subRouteData: Object,
+          subRoute: String,
+          rootPath: String
         };
       }
 
-      ready() {
-        super.ready();
-        document.addEventListener('on-join-room', (event) => this.viewRoom(event));
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
       }
 
-      viewRoom(event) {
-        this.roomKey = event.detail.roomKey;
-        this.pageName = 'view-room-page';
+      _routePageChanged(page) {
+        this.page = page || 'home';
       }
 
     }
