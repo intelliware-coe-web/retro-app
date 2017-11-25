@@ -3,16 +3,66 @@
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 
+<link rel="import" href="./retro-app-theme.html">
+<link rel="import" href="./retro-app-icons.html">
 
 <dom-module id="retro-auth">
   <template>
-    <style include="iron-flex iron-flex-alignment">
+    <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment">
+      :host {
+        --paper-tabs-selection-bar-color: var(--app-primary-color);
+        --paper-tab-ink: var(--app-primary-color);
+
+        --paper-input-container-input: {
+          font-size: var(--app-default-font-size);
+        };
+        --paper-input-container-color: var(--app-primary-color);
+        --paper-input-container-focus-color: var(--app-primary-color);
+        --paper-input-container-input-color: var(--app-primary-color);
+      }
+      
+      .wrapper {
+        margin: 0;
+        padding: 0;
+      }
+
       paper-dialog {
-      padding: 15px;
+        width: 450px;
+      }
+
+      .logo-column {
+        background: var(--app-primary-color);
+        width: 125px;
+      }
+
+      .logo-column > .layout {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .logo {
+        --iron-icon-height: 150px;
+        --iron-icon-width: 150px;
+
+        border: 10px solid white;
+        border-radius: 100%;
+        color: white;
+      }
+
+      .content {
+        background: var(--app-secondary-background-color);
+        color: var(--app-primary-color);
+        padding-top: 20px;
+      }
+
+      iron-pages section {
+        padding: 10px 30px 20px;
       }
 
       .google-sign-in {
@@ -60,38 +110,48 @@
                 entry-animation="scale-up-animation"
                 exit-animation="fade-out-animation">
 
-      <iron-pages selected="[[pageName]]" attr-for-selected="page-name" fallback-selection="sign-in">
-        <div page-name="sign-in">
-          <h2>Please sign in</h2>
-          <div class="google-sign-in"
-              tabindex="0"
-              on-click="googleSignIn">
-            <span class="google-sign-in-icon"></span>
-            <span class="google-sign-in-label">Google</span>
-          </div>
-          <hr>
-          <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-          <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
-          <div class="layout horizontal" style="margin-top: 15px">
-            <paper-button class="flex" raised on-click="emailSignIn">Sign In</paper-button>
-          </div>
-          <hr>
-          <div class="layout horizontal" style="margin-top: 15px">
-            <paper-button class="flex" raised on-click="goToCreate">Create</paper-button>
+      <div class="wrapper layout horizontal">
+        <div class="logo-column">
+          <div class="layout vertical center-center">
+            <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>
           </div>
         </div>
-        <div page-name="create-login">
-          <h2>Create Account</h2>
-          <paper-input id="name" label="Name" required auto-validate type="text"></paper-input>
-          <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-          <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
-          <paper-input id="password2" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
-          <div class="layout horizontal" style="margin-top: 15px">
-            <paper-button class="flex" raised on-click="createUser">Sign In</paper-button>
-          </div>
+        <div class="flex content">
+          <paper-tabs selected="{{selected}}" fit-container>
+            <paper-tab>Sign In</paper-tab>
+            <paper-tab>Sign Up</paper-tab>
+          </paper-tabs>
+          <iron-pages selected="{{selected}}" class="layout horizontal" fallback-selection="0">
+            <section class="flex">
+              <p>Sign in with one of your social media accounts or your email address.</p>
+              <div class="layout horizontal center-center">
+                <div class="google-sign-in"
+                  tabindex="0"
+                  on-click="googleSignIn">
+                  <span class="google-sign-in-icon"></span>
+                  <span class="google-sign-in-label">Google</span>
+                </div>
+              </div>
+              <hr>
+              <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
+              <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <div class="layout horizontal">
+                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="emailSignIn">Sign In</paper-button>
+              </div>
+            </section>
+            <section class="flex">
+              <p>Sign up with your email address.</p>
+              <paper-input id="name" label="Name" required auto-validate type="text"></paper-input>
+              <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
+              <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <paper-input id="password2" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <div class="layout horizontal">
+                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="createUser">Sign Up</paper-button>
+              </div>
+            </section>
+          </iron-pages>
         </div>
-      </iron-pages>
-
+      </div>
     </paper-dialog>
   </template>
 
@@ -107,20 +167,14 @@
           },
           statusKnown: {
             type: Object
-          },
-          pageName: {
-            type: String
           }
         };
       }
 
-      goToCreate() {
-        this.pageName = 'create-login';
-      }
-
       createUser() {
         this.$.auth.createUserWithEmailAndPassword(this.$.email.value, this.$.password.value)
-          .then(this.handleCreateSuccess)
+          .then(this.handleSuccess)
+          .then(this.updateDisplayName)
           .catch(this.handleError);
       }
 
@@ -136,9 +190,12 @@
           .catch(this.handleError);
       }
 
-      handleCreateSuccess(response) {
-        this.handleSuccess(response);
-        this.user.displayName = this.$.name.value;
+      updateDisplayName(response) {
+        var user = firebase.auth().currentUser;
+        
+        user.updateProfile({displayName: this.$.name.value,})
+          .then(this.handleSuccess)
+          .catch(this.handleError);        
       }
 
       handleSuccess(response) {

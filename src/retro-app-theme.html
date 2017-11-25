@@ -8,16 +8,21 @@
     --app-primary-color: #72C2B9;
     --app-secondary-color: #3C3E50;
 
+    --app-secondary-background-color: #3c3e51;
+
     --app-good-color: #98E1D2;
     --app-bad-color: #ECA4A6;
     --app-try-color: #7A6C8E;
+
+    --app-default-font-size: 16px;
+    --app-button-font-size: 0.75em;
   }
 
   body {
     background: var(--app-body-color);
     font-family: 'Lato', sans-serif;
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--app-default-font-size);
     max-width: 1200px;
     margin: auto;
     padding: 0 50px 50px 50px;
@@ -32,7 +37,7 @@
         border-radius:  50px;
         background: var(--app-primary-color);
         color: white;
-        font-size: 12px;
+        font-size: var(--app-button-font-size);
       }
 
       paper-button.secondary {
@@ -40,7 +45,15 @@
         background: transparent;
         border: 1px solid var(--app-primary-color);
         color: var(--app-primary-color);
-        font-size: 12px;
+        font-size: var(--app-button-font-size);
+      }
+
+      paper-tab {
+        font-size: 2.5em;
+      }
+
+      input {
+        font-size: inherit;
       }
 
       h1 {
