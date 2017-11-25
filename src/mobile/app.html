@@ -26,59 +26,18 @@
 <link rel="import" href="../retro-auth.html">
 <link rel="import" href="./room.page.html">
 <link rel="import" href="./landing.page.html">
+<link rel="import" href="../components/retro-app-header.html">
 
 <dom-module id="retro-app">
 
   <template>
 
-    <style is="custom-style" include="retro-app-theme">
-
-      :host {
-        --app-primary-color: #4285f4;
-        --app-secondary-color: black;
-      }
-
-      paper-button.indigo {
-        background-color: var(--paper-indigo-500);
-        color: white;
-        --paper-button-raised-keyboard-focus: {
-          background-color: var(--paper-pink-a200) !important;
-          color: white !important;
-        };
-      }
-
-      [page-name] {
-        padding: 15px;
-      }
-
-      #sticky {
-        height: 95vh;
-        padding: 20px;
-        width: 100%;
-      }
-
-      #addRetroItem {
-        bottom: 20px;
-        position: absolute;
-        right: 20px;
-      }
-
-      #backButton {
-        bottom: 20px;
-        position: absolute;
-      }
-    </style>
-
     <retro-auth id="auth" user="{{user}}"></retro-auth>
-    
-    <firebase-query id="addRetroQuery" path="/rooms/[[currentRoom]]/[[retroType]]"></firebase-query>
-    <firebase-query id="addMemberToRoom" path="/rooms/[[currentRoom]]/members"></firebase-query>
-    
-    <h1>Retro App</h1>
+    <retro-app-header id="header" user="{{user}}"></retro-app-header>    
 
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
         <landing-page name="home"></landing-page>
-        <room-page name="rooms"></room-page>
+        <room-page name="rooms" room-key="[[id]]"></room-page>
     </iron-pages>
   </template>
     
@@ -97,31 +56,6 @@
       joinRoom(event) {
         this.currentRoom = event.model.item.name;
         this.$.addMemberToRoom.ref.push(this.user.displayName);
-      }
-
-      goBack() {
-        this.pageName = 'join-room-page';
-      }
-        
-      addRetroItem() {
-        let retroText = this.$.retroText.value;
-
-        if (retroText) {
-          let retroData = {
-            authors: [this.user.displayName],
-            text: this.$.retroText.value,
-            type: this.$.retroType.value
-          };
-
-          this.retroType = this.$.retroType.value;
-          this.$.addRetroQuery.ref.push(retroData);
-          this.clear();
-        }
-      }
-
-      clear() {
-        this.$.retroText.value = '';
-        this.$.retroType.value = '';
       }
     }
 

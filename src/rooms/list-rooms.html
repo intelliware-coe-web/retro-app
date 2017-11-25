@@ -8,13 +8,15 @@
 
     <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment"></style>
 
-    <h2>Existing Rooms</h2>
+    <h2>{{title}}</h2>
 
     <template is="dom-if" if="{{hasRooms(rooms)}}">
         <template is="dom-repeat" items="{{roomsAsArray(rooms)}}">
           <div>
             <h4>{{item.name}}</h4>
-            <paper-button class="primary" on-click="joinRoom">Join</paper-button>
+            <template is="dom-if" if="[[canJoin]]">
+              <paper-button class="primary" on-click="joinRoom">Join</paper-button>
+            </template>
           </div>
         </template>
     </template>
@@ -26,6 +28,19 @@
   <script>
     class ListRooms extends Polymer.Element {
       static get is() { return 'list-rooms'; }
+
+      static get properties() {
+        return { 
+          archived: Boolean,
+          title: String
+        }
+      };
+
+      ready() {
+        super.ready();
+        this.title = this.archived ? 'Previous Sessions (not filtered yet)' : 'Active Sessions';
+        this.canJoin = !this.archived;
+      }
 
       hasRooms(rooms) {
         return Object.keys(rooms || {}).length;

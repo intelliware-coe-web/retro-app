@@ -13,14 +13,13 @@
   <template>
 
     <retro-auth id="auth" user="{{user}}"></retro-auth>
-
     <retro-app-header id="header" user="{{user}}"></retro-app-header>
+
     <section>
       <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
         <landing-page name="home"></landing-page>
-        <view-room name="rooms" room-key="[[subRouteData.id]]"></view-room>
+        <view-room name="rooms" room-key="[[id]]"></view-room>
       </iron-pages>
-
     </section>
   </template>
 
@@ -34,10 +33,7 @@
             type: String,
             notify: true
           },
-          routeData: Object,
-          subRouteData: Object,
-          subRoute: String,
-          rootPath: String
+          id: String
         };
       }
 

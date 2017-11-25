@@ -7,6 +7,10 @@
     --app-body-color: #F7F8F8;
     --app-primary-color: #72C2B9;
     --app-secondary-color: #3C3E50;
+
+    --app-good-color: #98E1D2;
+    --app-bad-color: #ECA4A6;
+    --app-try-color: #7A6C8E;
   }
 
   body {
@@ -16,6 +20,7 @@
     font-size: 16px;
     max-width: 1200px;
     margin: auto;
+    padding: 0 50px 50px 50px;
   }
 </style>
 
@@ -65,6 +70,23 @@
         font-weight: 300;
         font-size: 18px;
         margin-bottom: 10px;
+      }
+
+      a {
+        color: var(--app-primary-color);
+        text-decoration: none;
+      }
+
+      a:hover, a:focus {
+        text-decoration: underline;
+      }
+
+      .badge {
+        background: var(--app-secondary-color);
+        color: var(--app-primary-color);
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 14px;
       }
     </style>
   </template>

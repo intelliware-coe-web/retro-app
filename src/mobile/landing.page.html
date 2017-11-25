@@ -1,25 +1,35 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../retro-app-theme.html">
 <link rel="import" href="../rooms/create-room.html">
 <link rel="import" href="../rooms/list-rooms.html">
 
 <dom-module id="landing-page">
   
   <template>
-    <style is="custom-style">
-      .join-room-button {
+
+      <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment">
+      a.join-room-button {
+            background-color: var(--app-primary-color);
+            border-radius: 50px;
+            color: white;
+            display: block;
+            padding: 25px;
             margin: 5px 25px;
             font-size: 20px;
-            display: block;
             text-align: center;
-            padding: 25px;
-            background-color: var(--paper-green-500);
-            color: white;
+        }
+
+        a.join-room-button:hover,
+        a.join-room-button:focus {
+          background-color: var(--app-secondary-color);
+          text-decoration: none;
         }
     </style>
 
       <firebase-document path="/rooms" data="{{roomData}}"></firebase-document>
-      <h1>Mobile - Landing Page</h1>
 
       <template is="dom-repeat" items="[[roomDataArray]]">
           <a class="join-room-button" href="/rooms/{{item.name}}">[[item.value.name]]</a>

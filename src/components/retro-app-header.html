@@ -18,6 +18,9 @@
       }
       .app-header-submenu paper-button { text-transform: capitalize; }
 
+      h1 a { color: inherit; text-decoration: none; }
+      h1 a:hover, h1 a:focus { color: inherit; text-decoration: none; }
+
       .logo {
         width: 1em;
         height: 1em;
@@ -29,13 +32,15 @@
     
     <div class="layout horizontal center justified app-header">
       <h1>
-        <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>
-        Retro App
+        <a href="/home">
+          <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>
+          Retro App
+        </a>
       </h1>
 
       <div class="layout horizontal center app-header-submenu">
         <template is="dom-if" if="[[user]]">
-            <span>[[user.displayName]]</span>
+          <span>[[user.displayName]]</span>
             <paper-button on-click="logout">Logout</paper-button>
         </template>
       </div>
@@ -60,7 +65,6 @@
       }
 
       _userChanged(newValue, oldValue) {
-        console.log(newValue, oldValue);
       }
 
       _dispatchLogoutEvent() {

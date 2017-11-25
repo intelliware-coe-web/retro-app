@@ -1,12 +1,16 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../retro-auth.html">
 <link rel="import" href="../rooms/create-room.html">
 <link rel="import" href="../rooms/list-rooms.html">
 
 <dom-module id="room-page">
 
   <template>
-      <h1>Mobile - Room Page</h1>
-      
+      <retro-auth id="auth" user="{{user}}"></retro-auth>
+
+      <firebase-query id="addRetroQuery" path="/rooms/[[roomKey]]/[[retroType]]"></firebase-query>
+      <firebase-query id="addMemberToRoom" path="/rooms/[[roomKey]]/members"></firebase-query>
+
       <paper-card class="form" id="sticky">
           <paper-dropdown-menu id="retroType" label="Type" selected="">
             <paper-listbox slot="dropdown-content">
@@ -18,14 +22,41 @@
           <div>
             <paper-textarea id="retroText" rows="10" placeholder="Description"></paper-textarea>
           </div>
-          <paper-button id="backButton" on-click="goBack">Back</paper-button>
           <paper-button id="addRetroItem" class="indigo" on-click="addRetroItem">Add</paper-button>
         </paper-card>
   </template>
 
   <script>
     class RoomPage extends Polymer.Element {
+      
       static get is() { return 'room-page'; }
+
+      static get properties() {
+        return {
+          roomKey: String
+        };
+      }
+
+      addRetroItem() {
+          let retroText = this.$.retroText.value;
+
+          if (retroText) {
+            let retroData = {
+              authors: [this.user.displayName],
+              text: this.$.retroText.value,
+              type: this.$.retroType.value
+            };
+
+            this.retroType = this.$.retroType.value;
+            this.$.addRetroQuery.ref.push(retroData);
+            this.clear();
+          }
+        }
+
+        clear() {
+          this.$.retroText.value = '';
+          this.$.retroType.value = '';
+        }
     }
 
     window.customElements.define(RoomPage.is, RoomPage);
