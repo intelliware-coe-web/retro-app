@@ -1,3 +1,4 @@
+<script src="../../bower_components/qrcode.js/qrcode.js"></script>
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
@@ -10,7 +11,9 @@
   <template>
       <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment">
 
-        h1 { color: black; font-weight: 300; font-size: 46px; text-align: center; }
+        h1 { color: black; font-weight: 300; font-size: 46px; text-align: center; margin: 0; }
+        h1 #title { margin: auto; padding-left: 128px; }
+        h1 #qrCode { display: inline-block; }
       
         .retro-column { width: 33%; }
         .retro-column:first-child { margin-right: 50px; }
@@ -37,9 +40,13 @@
     </style>
 
     <firebase-document path="/rooms/{{roomKey}}" data={{room}}></firebase-document>
-    <h1>{{room.name}}</h1>
 
-    <div class="a layout horizontal">
+    <h1 class="layout horizontal center">
+      <span id="title">{{room.name}}</span>
+      <span id="qrCode"></span>
+    </h1>
+
+    <div class="layout horizontal">
       <div class="flex retro-column">
         <h2>Good</h2>
         <div id="good-board" class="retro-board layout vertical">
@@ -107,12 +114,17 @@
         };
       }
 
+      ready() {
+        super.ready();
+        new QRCode(this.$.qrCode, {text: document.location.href, width: 128, height: 128});
+      }
+
       hasStickies(stickies) {
         return Object.keys(stickies || {}).length;
       }
 
       stickiesAsArray(stickies) {
-        console.log(stickies)
+
         return Object
                 .keys(stickies || {})
                 .map(function(stickyKey) {
@@ -125,7 +137,6 @@
         this.selectedSticky = model.item;
         this.$.modifySticky.open();
       }
-
     }
 
     window.customElements.define(ViewRoom.is, ViewRoom);
