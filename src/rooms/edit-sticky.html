@@ -9,8 +9,11 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
+<link rel="import" href="./../retro-app-theme.html">
+
 <dom-module id="edit-sticky">
   <template>
+    <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment"></style>
 
     <firebase-document id="updateRetroQuery" path={{retroQueryUrl}} data={{sticky}}></firebase-document>
 

@@ -1,29 +1,41 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../retro-auth.html">
-<link rel="import" href="../rooms/create-room.html">
-<link rel="import" href="../rooms/list-rooms.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+
+<link rel="import" href="./../retro-app-theme.html">
 
 <dom-module id="room-page">
-
   <template>
-      <retro-auth id="auth" user="{{user}}"></retro-auth>
+    <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment">
+    </style>
 
-      <firebase-query id="addRetroQuery" path="/rooms/[[roomKey]]/[[retroType]]"></firebase-query>
-      <firebase-query id="addMemberToRoom" path="/rooms/[[roomKey]]/members"></firebase-query>
+    <firebase-query id="addRetroQuery" path="/rooms/[[roomKey]]/[[retroType]]"></firebase-query>
+    <firebase-query id="addMemberToRoom" path="/rooms/[[roomKey]]/members"></firebase-query>
 
-      <paper-card class="form" id="sticky">
-          <paper-dropdown-menu id="retroType" label="Type" selected="">
-            <paper-listbox slot="dropdown-content">
-              <paper-item>good</paper-item>
-              <paper-item>bad</paper-item>
-              <paper-item>try</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <div>
-            <paper-textarea id="retroText" rows="10" placeholder="Description"></paper-textarea>
-          </div>
-          <paper-button id="addRetroItem" class="indigo" on-click="addRetroItem">Add</paper-button>
-        </paper-card>
+    <paper-card class="form" id="sticky">
+        <paper-dropdown-menu id="retroType" label="Type" selected="">
+          <paper-listbox slot="dropdown-content">
+            <paper-item>good</paper-item>
+            <paper-item>bad</paper-item>
+            <paper-item>try</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <div>
+          <paper-textarea id="retroText" rows="10" placeholder="Description"></paper-textarea>
+        </div>
+        <paper-button id="addRetroItem" class="indigo" on-click="addRetroItem">Add</paper-button>
+      </paper-card>
   </template>
 
   <script>

@@ -15,12 +15,15 @@
     <retro-auth id="auth" user="{{user}}"></retro-auth>
     <retro-app-header id="header" user="{{user}}"></retro-app-header>
 
-    <section>
-      <iron-pages selected="[[page]]" attr-for-selected="name" role="main" fallback-selection="home">
-        <landing-page name="home"></landing-page>
-        <view-room name="rooms" room-key="[[id]]"></view-room>
-      </iron-pages>
-    </section>
+    <template is="dom-if" if="{{user}}">      
+      <section>
+        <iron-pages selected="[[page]]" attr-for-selected="name" role="main" fallback-selection="home">
+          <landing-page name="home"></landing-page>
+          <view-room name="rooms" room-key="[[id]]"></view-room>
+        </iron-pages>
+      </section>
+    </template>
+
   </template>
 
   <script>

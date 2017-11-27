@@ -15,29 +15,29 @@
 
   <template>
 
-      <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment"></style>
+    <style is="custom-style" include="retro-app-theme iron-flex iron-flex-alignment"></style>
 
-      <firebase-document path="/rooms" data="{{roomData}}"/>
-      <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>
+    <firebase-document path="/rooms" data="{{roomData}}"/>
+    <firebase-query id="createRoomQuery" path="/rooms"></firebase-query>
 
-        <h2>Start New Session</h2>
-        <div>
-          <paper-input id="roomName" placeholder="Room name" type="text"></paper-input>
-          <paper-button class="primary" on-click="createRoom">Create</paper-button>
-        </div>
-  
-        <h3>Copy Previous Session</h3>
-        <div>
-          <paper-dropdown-menu id="roomSelection" label="Previous Rooms" style="width: 100%;">
-            <paper-listbox slot="dropdown-content" selected="">
-              <template is="dom-repeat" items="[[roomDataArray]]">
-                  <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <br />
-          <paper-button class="secondary" on-click="copyRoom">Copy from Previous</paper-button>
-        </div>
+    <h2>Start New Session</h2>
+    <div>
+      <paper-input id="roomName" placeholder="Room name" type="text"></paper-input>
+      <paper-button class="primary" on-click="createRoom">Create</paper-button>
+    </div>
+
+    <h3>Copy Previous Session</h3>
+    <div>
+      <paper-dropdown-menu id="roomSelection" label="Previous Rooms" style="width: 100%;">
+        <paper-listbox slot="dropdown-content" selected="">
+          <template is="dom-repeat" items="[[roomDataArray]]">
+              <paper-item value="[[item.name]]">[[item.value.name]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+      <br />
+      <paper-button class="secondary" on-click="copyRoom">Copy from Previous</paper-button>
+    </div>
 
   </template>
 
