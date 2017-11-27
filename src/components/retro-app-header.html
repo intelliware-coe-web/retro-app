@@ -28,9 +28,20 @@
         border-radius: 50%;
         padding: 5px;
       }
+
+      .app-header { @apply --layout-vertical; }
+
+      @media all and (max-width: 499px) {
+        .app-header { margin-bottom: 30px; }
+        h1 { margin-bottom: 5px; }
+      }
+
+      @media all and (min-width: 500px) {
+        .app-header { @apply --layout-horizontal; }
+      }
     </style>
     
-    <div class="layout horizontal center justified app-header">
+    <div class="layout center justified app-header">
       <h1>
         <a href="/home">
           <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>

@@ -18,23 +18,44 @@
 <dom-module id="room-page">
   <template>
     <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment">
+      :host {
+        --primary-background-color: var(--app-body-color);
+        --primary-color: var(--app-primary-color);
+      }
+
+      paper-card {
+        background-color: var(--app-body-color);
+        text-align: center;
+        width: 100%;
+      }
+      
+      paper-item {
+        text-transform: capitalize;
+      }
+
+      #retroText {
+        margin-bottom: 20px;
+      }
+
+      #addRetroItem {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
     </style>
 
     <firebase-query id="addRetroQuery" path="/rooms/[[roomKey]]/[[retroType]]"></firebase-query>
     <firebase-query id="addMemberToRoom" path="/rooms/[[roomKey]]/members"></firebase-query>
 
     <paper-card class="form" id="sticky">
-        <paper-dropdown-menu id="retroType" label="Type" selected="">
+        <paper-dropdown-menu id="retroType" label="Select Column" selected="" placeholder="Good/Bad/Try">
           <paper-listbox slot="dropdown-content">
             <paper-item>good</paper-item>
             <paper-item>bad</paper-item>
             <paper-item>try</paper-item>
           </paper-listbox>
         </paper-dropdown-menu>
-        <div>
-          <paper-textarea id="retroText" rows="10" placeholder="Description"></paper-textarea>
-        </div>
-        <paper-button id="addRetroItem" class="indigo" on-click="addRetroItem">Add</paper-button>
+        <paper-textarea id="retroText" rows="10" placeholder="Enter comment here"></paper-textarea>
+        <paper-button id="addRetroItem" class="primary" on-click="addRetroItem">Submit Comment</paper-button>
       </paper-card>
   </template>
 
