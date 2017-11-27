@@ -1,9 +1,9 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/retro-app.html",
+  "shell": "src/retro-app-wrapper.html",
   "fragments": [
-    "src/retro-app-desktop.html",
-    "src/retro-app-mobile.html"
+    "src/mobile/app.html",
+    "src/desktop/app.html"
   ],
   "sources": [
     "src/**/*",

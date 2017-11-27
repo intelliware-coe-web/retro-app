@@ -120,18 +120,18 @@
                   <span class="label">Github</span>
                 </paper-button>
               </div>
-              <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-              <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <paper-input id="email-sign-in" label="Email" required auto-validate type="email"></paper-input>
+              <paper-input id="password-sign-in" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
               <div class="layout horizontal">
                 <paper-button class="flex primary" style="margin-top: 20px" raised on-click="emailSignIn">Login</paper-button>
               </div>
             </section>
             <section class="flex">
               <p>Sign up with your email address.</p>
-              <paper-input id="name" label="Name" required auto-validate type="text"></paper-input>
-              <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-              <paper-input id="password" label="Create Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
-              <paper-input id="password2" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <paper-input id="name-sign-up" label="Name" required auto-validate type="text"></paper-input>
+              <paper-input id="email-sign-up" label="Email" required auto-validate type="email"></paper-input>
+              <paper-input id="password-sign-up" label="Create Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <paper-input id="password2-sign-up" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
               <div class="layout horizontal">
                 <paper-button class="flex primary" style="margin-top: 20px" raised on-click="createUser">Create Account</paper-button>
               </div>
@@ -159,14 +159,15 @@
       }
 
       createUser() {
-        this.$.auth.createUserWithEmailAndPassword(this.$.email.value, this.$.password.value)
+        this.$.auth.createUserWithEmailAndPassword(this.$['email-sign-up'].value, this.$['password-sign-up'].value)
           .then(this.handleSuccess)
           .then(this.updateDisplayName)
           .catch(this.handleError);
       }
 
       emailSignIn() {
-        this.$.auth.signInWithEmailAndPassword(this.$.email.value, this.$.password.value)
+        console.log('this.$.email.value', this.$['email-sign-in'].value);
+        this.$.auth.signInWithEmailAndPassword(this.$['email-sign-in'].value, this.$['password-sign-in'].value)
           .then(this.handleSuccess)
           .catch(this.handleError);
       }

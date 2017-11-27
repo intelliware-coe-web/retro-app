@@ -35,7 +35,7 @@
     <retro-auth id="auth" user="{{user}}"></retro-auth>
     <retro-app-header id="header" user="{{user}}"></retro-app-header>    
 
-    <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+    <iron-pages selected="[[page]]" attr-for-selected="name" role="main" fallback-selection="home">
         <landing-page name="home"></landing-page>
         <room-page name="rooms" room-key="[[id]]"></room-page>
     </iron-pages>
@@ -49,7 +49,8 @@
         return {
           id: String,
           retroType: String,
-          currentRoom: String
+          currentRoom: String,
+          page: String
         };
       }
 

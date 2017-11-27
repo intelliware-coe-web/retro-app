@@ -16,7 +16,7 @@
     <retro-app-header id="header" user="{{user}}"></retro-app-header>
 
     <section>
-      <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+      <iron-pages selected="[[page]]" attr-for-selected="name" role="main" fallback-selection="home">
         <landing-page name="home"></landing-page>
         <view-room name="rooms" room-key="[[id]]"></view-room>
       </iron-pages>
