@@ -61,7 +61,8 @@
 
       static get properties() {
         return {
-          roomKey: String
+          roomKey: String,
+          user: Object
         };
       }
 
@@ -77,11 +78,11 @@
 
             this.retroType = this.$.retroType.value;
             this.$.addRetroQuery.ref.push(retroData);
-            this.clear();
+            this._clear();
           }
         }
 
-        clear() {
+        _clear() {
           this.$.retroText.value = '';
           this.$.retroType.value = '';
         }

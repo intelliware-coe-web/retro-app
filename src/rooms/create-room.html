@@ -78,15 +78,12 @@
         var oldTries = this.roomData[this.$.roomSelection.value.value].tries;
         this.$.createRoomQuery.ref
           .push({name: this.$.roomName.value, tries: oldTries})
-          .then(this.dispatchJoinRoomEvent);
+          .then(this._joinRoom);
       }
 
-      dispatchJoinRoomEvent(room) {
-        document.dispatchEvent(new CustomEvent('on-join-room', {detail: {roomKey: room.key}}));
+      _joinRoom(room) {
+        document.location.pathname = '/rooms/' + room.key;
       }
-
-      
-
     }
 
     window.customElements.define(CreateRoom.is, CreateRoom);

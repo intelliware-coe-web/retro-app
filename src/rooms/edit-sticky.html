@@ -10,6 +10,8 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
 <link rel="import" href="./../retro-app-theme.html">
+<link rel="import" href="./../retro-app-icons.html">
+
 
 <dom-module id="edit-sticky">
   <template>
@@ -24,12 +26,28 @@
         padding-left: 15px;
         padding-right: 15px;
       }
+
+      .logo {
+        width: 1em;
+        height: 1em;
+        border: 2px solid var(--app-primary-color);
+        background-color: var(--app-primary-color);
+        color: white;
+        border-radius: 50%;
+        padding: 5px;
+      }
+      .type {
+        text-transform: capitalize;
+      }
     </style>
 
     <firebase-document id="updateRetroQuery" path={{retroQueryUrl}} data={{sticky}}></firebase-document>
 
     <paper-dialog id="dialog">
-      <h2>Update Card</h2>
+      <h2>
+        <iron-icon class="logo" icon="retro-app-icons:logo"></iron-icon>
+        Update <span class="type">[[sticky.type]]</span>
+      </h2>
       <paper-textarea id="retroText" rows="10" placeholder="Description" value={{sticky.text}}></paper-textarea>
       </paper-card>        
       <paper-input elevation="2" value={{sticky.assignedTo}} type="text" placeholder="Assign To"></paper-input>
