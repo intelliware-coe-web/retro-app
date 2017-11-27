@@ -13,16 +13,30 @@
 
 <dom-module id="edit-sticky">
   <template>
-    <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment"></style>
+    <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment">
+      paper-dialog {
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);    
+        border-radius: 5px;    
+        width: 500px;
+      }
+
+      paper-button {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    </style>
 
     <firebase-document id="updateRetroQuery" path={{retroQueryUrl}} data={{sticky}}></firebase-document>
 
     <paper-dialog id="dialog">
+      <h2>Update Card</h2>
       <paper-textarea id="retroText" rows="10" placeholder="Description" value={{sticky.text}}></paper-textarea>
       </paper-card>        
       <paper-input elevation="2" value={{sticky.assignedTo}} type="text" placeholder="Assign To"></paper-input>
-      <paper-button id="deleteSticky" class="secondary" on-click="delete">Delete</paper-button>
-      <paper-button id="updateSticky" class="primary" on-click="updateRetroItem">Update</paper-button>
+      <div class="layout horizontal center-center">
+        <paper-button id="deleteSticky" class="secondary" on-click="delete">Delete</paper-button>
+        <paper-button id="updateSticky" class="primary" on-click="updateRetroItem">Update</paper-button>
+      </div>
     </paper-dialog>
   </template>
 
