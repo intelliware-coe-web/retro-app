@@ -16,15 +16,16 @@
   <template>
     <style id="custom-styles" include="retro-app-theme iron-flex iron-flex-alignment">
       :host {
+        --paper-input-container-color: var(--app-primary-color);
+        --paper-input-container-focus-color: var(--app-primary-color);
+        --paper-input-container-input-color: var(--app-primary-color);
+
         --paper-tabs-selection-bar-color: var(--app-primary-color);
         --paper-tab-ink: var(--app-primary-color);
 
         --paper-input-container-input: {
           font-size: var(--app-default-font-size);
         };
-        --paper-input-container-color: var(--app-primary-color);
-        --paper-input-container-focus-color: var(--app-primary-color);
-        --paper-input-container-input-color: var(--app-primary-color);
       }
       
       .wrapper {
@@ -33,12 +34,18 @@
       }
 
       paper-dialog {
-        width: 450px;
+        width: 300px;
       }
+
+      paper-tabs {
+        border-bottom: 1px solid var(--app-primary-color);
+        padding-top: 20px;
+      }      
 
       .logo-column {
         background: var(--app-primary-color);
         width: 125px;
+        display: none;
       }
 
       .logo-column > .layout {
@@ -58,51 +65,26 @@
       .content {
         background: var(--app-secondary-background-color);
         color: var(--app-primary-color);
-        padding-top: 20px;
       }
 
       iron-pages section {
         padding: 10px 30px 20px;
-      }
+      }          
 
-      .google-sign-in {
-        display: inline-block;
-        background: #4285f4;
-        color: white;
-        width: 190px;
-        padding: 0;
-        border-radius: 5px;
-        white-space: nowrap;
-      }
+      @media all and (min-width: 500px) {
+        paper-dialog {
+          width: 450px;
+        }
 
-      .google-sign-in:hover {
-        cursor: pointer;
-      }
-
-      .google-sign-in-icon {
-        background: url('/images/google-sign-in/g-normal.png') transparent 5px 50% no-repeat;
-        display: inline-block;
-        vertical-align: middle;
-        width: 42px;
-        height: 42px;
-        border-right: #2265d4 1px solid;
-      }
-
-      .google-sign-in-label {
-        display: inline-block;
-        vertical-align: middle;
-        padding-left: 42px;
-        padding-right: 42px;
-        font-size: 14px;
-        font-weight: bold;
-        /* Use the Roboto font that is loaded in the <head> */
-        font-family: 'Roboto', sans-serif;
-      }
+        .logo-column {
+          display: block;
+        }
+      }    
     </style>
 
 
 
-    <firebase-auth id="auth" user="{{user}}" provider="google" status-known="{{statusKnown}}">
+    <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}">
     </firebase-auth>
 
     <paper-dialog modal
@@ -123,30 +105,35 @@
           </paper-tabs>
           <iron-pages selected="{{selected}}" class="layout horizontal" fallback-selection="0">
             <section class="flex">
-              <p>Sign in with one of your social media accounts or your email address.</p>
+              <p style="text-align: center">Sign in with one of your social media accounts or your email address.</p>
               <div class="layout horizontal center-center">
-                <div class="google-sign-in"
+                <paper-button class="secondary"
                   tabindex="0"
                   on-click="googleSignIn">
-                  <span class="google-sign-in-icon"></span>
-                  <span class="google-sign-in-label">Google</span>
-                </div>
+                  <iron-icon icon="brand-icons:google-plus"></iron-icon>
+                  <span class="label">Google</span>
+                </paper-button>
+                <paper-button class="secondary"
+                  tabindex="0"
+                  on-click="githubSignIn">
+                  <iron-icon icon="brand-icons:github"></iron-icon>
+                  <span class="label">Github</span>
+                </paper-button>
               </div>
-              <hr>
               <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
               <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
               <div class="layout horizontal">
-                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="emailSignIn">Sign In</paper-button>
+                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="emailSignIn">Login</paper-button>
               </div>
             </section>
             <section class="flex">
               <p>Sign up with your email address.</p>
               <paper-input id="name" label="Name" required auto-validate type="text"></paper-input>
               <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-              <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+              <paper-input id="password" label="Create Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
               <paper-input id="password2" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
               <div class="layout horizontal">
-                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="createUser">Sign Up</paper-button>
+                <paper-button class="flex primary" style="margin-top: 20px" raised on-click="createUser">Create Account</paper-button>
               </div>
             </section>
           </iron-pages>
@@ -186,6 +173,12 @@
 
       googleSignIn() {
         this.$.auth.signInWithPopup('google')
+          .then(this.handleSuccess)
+          .catch(this.handleError);
+      }
+
+      githubSignIn() {
+        this.$.auth.signInWithPopup('github')
           .then(this.handleSuccess)
           .catch(this.handleError);
       }
